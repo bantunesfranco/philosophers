@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address #-g
 NAME = philo
 
 DIR_I = incs
 
-SRCS = ${shell find ./srcs -type f -name "*.c"}
+SRCS = ${shell find srcs -type f -name "*.c"}
 INCS = -I ${DIR_I}
 
 ${NAME}: ${SRCS} ${DIR_I}/philo.h

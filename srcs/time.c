@@ -17,7 +17,7 @@ int	get_time()
 	struct timeval time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return(err_msg(), -1);
+		return(err_msg("Error: get_time"), -1);
 	return(time.tv_sec * 1000 + time.tv_usec * 0.001);
 }
 

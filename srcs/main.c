@@ -12,17 +12,6 @@
 
 #include <philo.h>
 
-int	p_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (i);
-	while (str[i])
-		i++;
-	return (i);
-}
 
 void	err_msg(char *msg)
 {
@@ -35,10 +24,20 @@ int	init_info(t_info *info, char **argv)
 	info->time_to_die = p_atoi(argv[2]);
 	info->time_to_eat = p_atoi(argv[3]);
 	info->time_to_sleep = p_atoi(argv[4]);
-	info->nb_times_to_eat = p_atoi(argv[5]);
-	if (info->nb_philos == -1 || info->time_to_die == -1 \
-	|| info->time_to_eat == -1 || info->time_to_sleep == -1 \
-	|| info->nb_times_to_eat == -1)
+	if (argv[5])
+		info->nb_times_to_eat = p_atoi(argv[5]);
+	else 
+		info->nb_times_to_eat = INT_MAX;
+	if (info->nb_philos == -1)
+		return (err_msg(ARG1), -1);
+	if (info->time_to_die == -1)
+		return (err_msg(ARG2), -1);
+	if (info->time_to_eat == -1)
+		return (err_msg(ARG3), -1);
+	if (info->time_to_sleep == -1)
+		return (err_msg(ARG4), -1);
+	if (info->nb_times_to_eat == -1)
+		return (err_msg(ARG5), -1);
 	return (0);
 }
 
@@ -46,7 +45,7 @@ int main(int argc, char **argv)
 {
 	t_info	info;
 
-	if (argc != 5 || argc != 6)
+	if (argc < 5 || argc > 6)
 		return (err_msg(ARG0), -1);
 	if (init_info(&info, argv) == -1)
 		return (-1);
