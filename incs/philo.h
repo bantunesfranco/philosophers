@@ -63,7 +63,6 @@ The last parameter is optional\n"
 #define THINK "is thinking"
 #define DEAD "died"
 
-
 void	err_msg(char *msg);
 int		p_atoi(char *str);
 
