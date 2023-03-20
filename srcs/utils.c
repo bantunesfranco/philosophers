@@ -34,8 +34,8 @@ int	p_atoi(char *str)
 	i = 0;
 	nb = 0;
 	mult = 1;
-	while (str[i] == ' ' || str[i] == '\f'  || str[i] == '\n' \
-	|| str[i] == '\r'  || str[i] == '\t' || str[i] == '\v')
+	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\n' \
+	|| str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
 		i++;
 	if ((str[i] == '-' || str[i] == '+'))
 	{	
@@ -48,9 +48,8 @@ int	p_atoi(char *str)
 		nb = nb * 10 + (*str - '0');
 		i++;
 	}
-	if (str[i] && (str[i] < '0' || str[i] > '9'))
-		return (-1);
-	if (nb * mult < INT_MIN || nb * mult > INT_MAX)
+	if (str[i] && (str[i] < '0' || str[i] > '9') \
+	|| (nb * mult < INT_MIN || nb * mult > INT_MAX))
 		return (-1);
 	return ((int)(nb * mult));
 }

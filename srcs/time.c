@@ -12,13 +12,13 @@
 
 #include <philo.h>
 
-int	get_time()
+int	get_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return(err_msg("Error: get_time"), -1);
-	return(time.tv_sec * 1000 + time.tv_usec * 0.001);
+		return (err_msg("Error: get_time"), -1);
+	return (time.tv_sec * 1000 + time.tv_usec * 0.001);
 }
 
 int	delta_time(t_info *info)

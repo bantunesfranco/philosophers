@@ -12,7 +12,6 @@
 
 #include <philo.h>
 
-
 void	err_msg(char *msg)
 {
 	write(2, msg, p_strlen(msg));
@@ -26,7 +25,7 @@ int	init_info(t_info *info, char **argv)
 	info->time_to_sleep = p_atoi(argv[4]);
 	if (argv[5])
 		info->nb_times_to_eat = p_atoi(argv[5]);
-	else 
+	else
 		info->nb_times_to_eat = INT_MAX;
 	if (info->nb_philos == -1)
 		return (err_msg(ARG1), -1);
@@ -41,7 +40,7 @@ int	init_info(t_info *info, char **argv)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_info	info;
 

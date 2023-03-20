@@ -34,7 +34,7 @@ typedef struct s_philo
 	pthread_t	thread;
 }	t_philo;
 
-typedef struct	s_info
+typedef struct s_info
 {
 	int				nb_philos;
 	int				time_to_die;
@@ -47,21 +47,21 @@ typedef struct	s_info
 	pthread_mutex_t	msg;
 }	t_info;
 
-#define ARG0 "Error: Incorrect number of arguments.\n\
+# define ARG0 "Error: Incorrect number of arguments.\n\
 Use: ./philo nb_of_philos time_to_die time_to_eat \
 time_to_sleep [nb_of_times_must_eat]\n\
 The last parameter is optional\n"
-#define ARG1 "Error: nb_of_philos is invalid\n"
-#define ARG2 "Error: time_to_die is invalid\n"
-#define ARG3 "Error: time_to_eat is invalid\n"
-#define ARG4 "Error: time_to_sleep is invalid\n"
-#define ARG5 "Error: nb_of_times_must_eat is invalid\n"
+# define ARG1 "Error: nb_of_philos is invalid\n"
+# define ARG2 "Error: time_to_die is invalid\n"
+# define ARG3 "Error: time_to_eat is invalid\n"
+# define ARG4 "Error: time_to_sleep is invalid\n"
+# define ARG5 "Error: nb_of_times_must_eat is invalid\n"
 
-#define FORK "has taken a fork"
-#define EAT "is eating"
-#define SLEEP "is sleeping"
-#define THINK "is thinking"
-#define DEAD "died"
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DEAD "died"
 
 void	err_msg(char *msg);
 int		p_atoi(char *str);
