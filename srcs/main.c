@@ -55,5 +55,6 @@ int	main(int argc, char **argv)
 		return (-1);
 	if (create_philos(&info) == -1)
 		return (-1);
+	pthread_join(info.philos[0].thread, NULL);
 	return (0);
 }

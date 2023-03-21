@@ -12,29 +12,33 @@
 
 #include <philo.h>
 
-void	routine(t_info *info)
+void	*routine(void *param)
 {
+	t_info *info;
+
+	info = param;
 	printf("%d\n", info->philos[0].id);
+	return (NULL);
 }
 
 int	create_philos(t_info *info)
 {
 	int			i;
-	int			j;
+	// int			j;
 	t_philo		philo;
 	pthread_t	th;
 
 	i = -1;
 	while (++i < info->nb_philos)
 	{
-		j = i + 1;
+		// j = i + 1;
 		philo.id = i + 1;
 		philo.nb_times_ate = 0;
 		philo.time_to_die = info->time_to_die;
-		philo.fork->left = j;
-		philo.fork_->ight = i;
-		philo.thread = pthread_create(th, &routine, info);
-		if (philo.thread == -1)
+		// philo.fork->left = j;
+		// philo.fork->right = i;
+		philo.thread = pthread_create(&th, NULL, &routine, info);
+		if (philo.thread != 0)
 			return (err_msg("Error: Create thread\n"));
 		info->philos[i] = philo;
 	}
