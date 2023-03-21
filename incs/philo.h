@@ -63,7 +63,9 @@ The last parameter is optional\n"
 # define THINK "is thinking"
 # define DEAD "died"
 
-void	err_msg(char *msg);
+int		err_msg(char *msg);
 int		p_atoi(char *str);
+int		p_strlen(char *str);
+int		create_philos(t_info *info);
 
 #endif
