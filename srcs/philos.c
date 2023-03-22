@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 10:47:15 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/03/21 10:47:15 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/03/22 17:00:31 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	*routine(void *param)
 {
-	t_info *info;
+	t_info	*info;
 
 	info = param;
-	printf("%d\n", info->philos[0].id);
+	// printf("%d\n", info->philos[0].id);
+	printf("HI\n");
 	return (NULL);
 }
 
 int	create_philos(t_info *info)
 {
 	int			i;
-	// int			j;
 	t_philo		philo;
-	pthread_t	th;
+	// int			j;
 
 	i = -1;
 	while (++i < info->nb_philos)
@@ -37,8 +37,7 @@ int	create_philos(t_info *info)
 		philo.time_to_die = info->time_to_die;
 		// philo.fork->left = j;
 		// philo.fork->right = i;
-		philo.thread = pthread_create(&th, NULL, &routine, info);
-		if (philo.thread != 0)
+		if (pthread_create(&philo.thread, NULL, &routine, NULL))
 			return (err_msg("Error: Create thread\n"));
 		info->philos[i] = philo;
 	}
