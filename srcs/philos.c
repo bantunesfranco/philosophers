@@ -12,34 +12,53 @@
 
 #include <philo.h>
 
-void	*routine(void *param)
-{
-	t_info	*info;
-
-	info = param;
-	// printf("%d\n", info->philos[0].id);
-	printf("HI\n");
-	return (NULL);
-}
-
 int	create_philos(t_info *info)
 {
 	int			i;
-	t_philo		philo;
-	// int			j;
+	int			j;
 
-	i = -1;
-	while (++i < info->nb_philos)
+	i = 0;
+	info->philos = (t_philo *)malloc(info->nb_philos * sizeof(t_philo));
+	if (!info->philos)
+		return (err_msg("Error: Malloc\n"));
+	while (i < info->nb_philos)
 	{
-		// j = i + 1;
-		philo.id = i + 1;
-		philo.nb_times_ate = 0;
-		philo.time_to_die = info->time_to_die;
-		// philo.fork->left = j;
-		// philo.fork->right = i;
-		if (pthread_create(&philo.thread, NULL, &routine, NULL))
-			return (err_msg("Error: Create thread\n"));
-		info->philos[i] = philo;
+		j = i + 1;
+		if (i == info->nb_philos - 1)
+			j = 0;
+		info->philos[i].id = i + 1;
+		info->philos[i].nb_times_ate = 0;
+		info->philos[i].time_to_die = 0;
+		info->philos[i].fork.left = i;
+		info->philos[i].fork.right = j;
+		i++;
 	}
 	return (0);
+}
+
+int	join_philos(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->nb_philos)
+	{
+		if (pthread_join(info->philos[i].thread, NULL))
+			return (err_msg("Error: Join thread\n"));
+		i++;
+	}
+	return (0);
+}
+
+void	kill_philos(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_destroy(info->msg);
+	while (i < info->nb_philos)
+	{
+		pthread_mutex_destroy(info->forks[i]);
+		i++;
+	}
 }

@@ -53,3 +53,16 @@ int	p_atoi(char *str)
 		return (-1);
 	return ((int)(nb * mult));
 }
+
+
+void	free_info(t_info *info)
+{
+	free(info->philos);
+	free(info->forks);
+}
+
+int	err_msg(char *msg)
+{
+	write(2, msg, p_strlen(msg));
+	return (-1);
+}

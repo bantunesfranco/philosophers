@@ -30,7 +30,7 @@ typedef struct s_philo
 	int			id;
 	int			nb_times_ate;
 	long long	time_to_die;
-	t_fork		*fork;
+	t_fork		fork;
 	pthread_t	thread;
 }	t_philo;
 
@@ -40,10 +40,10 @@ typedef struct s_info
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				nb_times_to_eat;
+	int				*nb_times_to_eat;
 	int				t0;
 	t_philo			*philos;
-	pthread_mutex_t	*fork;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg;
 }	t_info;
 
@@ -63,9 +63,24 @@ The last parameter is optional\n"
 # define THINK "is thinking"
 # define DEAD "died"
 
+/* utils */
 int		err_msg(char *msg);
 int		p_atoi(char *str);
 int		p_strlen(char *str);
+
+/* init */
 int		create_philos(t_info *info);
+int		create_threads(t_info *info);
+int		create_forks(t_info *info);
+
+/* time */
+long	get_time(void);
+long	delta_time(long time);
+void	do_task(long time);
+
+/* exit */
+void	kill_philos(t_info *info);
+void	destroy_forks(t_info *info);
+void	free_info(t_info *info);
 
 #endif
