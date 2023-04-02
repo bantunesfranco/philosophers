@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 typedef struct s_fork
 {
@@ -40,22 +41,32 @@ typedef struct s_info
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				*nb_times_to_eat;
+	int				nb_times_to_eat;
 	int				t0;
+	bool			dead;
 	t_philo			*philos;
+	pthread_t		*bossman;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg;
 }	t_info;
 
-# define ARG0 "Error: Incorrect number of arguments.\n\
+# define RED "\033[1;31m"
+# define GREEN "\033[1;32m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[1;34m"
+# define MAGENTA "\033[1;35m"
+# define CYAN "\033[1;36m"
+# define END "\033[0m"
+
+# define ARG0 "Incorrect number of arguments.\n\
 Use: ./philo nb_of_philos time_to_die time_to_eat \
 time_to_sleep [nb_of_times_must_eat]\n\
 The last parameter is optional\n"
-# define ARG1 "Error: nb_of_philos is invalid\n"
-# define ARG2 "Error: time_to_die is invalid\n"
-# define ARG3 "Error: time_to_eat is invalid\n"
-# define ARG4 "Error: time_to_sleep is invalid\n"
-# define ARG5 "Error: nb_of_times_must_eat is invalid\n"
+# define ARG1 "nb_of_philos is invalid\n"
+# define ARG2 "time_to_die is invalid\n"
+# define ARG3 "time_to_eat is invalid\n"
+# define ARG4 "time_to_sleep is invalid\n"
+# define ARG5 "nb_of_times_must_eat is invalid\n"
 
 # define FORK "has taken a fork"
 # define EAT "is eating"
@@ -67,6 +78,7 @@ The last parameter is optional\n"
 int		err_msg(char *msg);
 int		p_atoi(char *str);
 int		p_strlen(char *str);
+int		p_print(t_info *info, t_philo *philo, char *str, char *color);
 
 /* init */
 int		create_philos(t_info *info);

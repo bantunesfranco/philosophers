@@ -20,9 +20,9 @@ int	init_info(t_info *info, char **argv)
 	info->time_to_eat = p_atoi(argv[3]);
 	info->time_to_sleep = p_atoi(argv[4]);
 	if (argv[5])
-		*info->nb_times_to_eat = p_atoi(argv[5]);
+		info->nb_times_to_eat = p_atoi(argv[5]);
 	else
-		info->nb_times_to_eat = NULL;
+		info->nb_times_to_eat = 0;
 	if (info->nb_philos == -1)
 		return (err_msg(ARG1));
 	if (info->time_to_die == -1)
@@ -31,8 +31,9 @@ int	init_info(t_info *info, char **argv)
 		return (err_msg(ARG3));
 	if (info->time_to_sleep == -1)
 		return (err_msg(ARG4));
-	if (info->nb_times_to_eat && *info->nb_times_to_eat == -1)
+	if (info->nb_times_to_eat == -1)
 		return (err_msg(ARG5));
+	info->has_died = false;
 	return (0);
 }
 
@@ -41,12 +42,14 @@ int	main(int argc, char **argv)
 	t_info	info;
 
 	if (argc < 5 || argc > 6)
-		return (err_msg(ARG0), -1);
+		return (err_msg(ARG0), 1);
 	if (init_info(&info, argv) == -1)
-		return (-1);
+		return (1);
 	if (create_philos(&info) == -1)
-		return (-1);
+		return (1);
 	if (create_threads(&info) == -1)
-		return (-1);
+		return (1);
+	if (create_forks(&info) == -1)
+		return (1);
 	return (0);
 }

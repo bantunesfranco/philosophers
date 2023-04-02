@@ -20,7 +20,7 @@ int	create_philos(t_info *info)
 	i = 0;
 	info->philos = (t_philo *)malloc(info->nb_philos * sizeof(t_philo));
 	if (!info->philos)
-		return (err_msg("Error: Malloc\n"));
+		return (err_msg("Malloc\n"));
 	while (i < info->nb_philos)
 	{
 		j = i + 1;
@@ -44,21 +44,9 @@ int	join_philos(t_info *info)
 	while (i < info->nb_philos)
 	{
 		if (pthread_join(info->philos[i].thread, NULL))
-			return (err_msg("Error: Join thread\n"));
+			return (err_msg("Join thread\n"));
 		i++;
 	}
 	return (0);
 }
 
-void	kill_philos(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	pthread_mutex_destroy(info->msg);
-	while (i < info->nb_philos)
-	{
-		pthread_mutex_destroy(info->forks[i]);
-		i++;
-	}
-}

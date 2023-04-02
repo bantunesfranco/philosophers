@@ -27,7 +27,7 @@ int	p_strlen(char *str)
 
 int	p_atoi(char *str)
 {
-	long int	nb;
+	long long	nb;
 	int			mult;
 	int			i;
 
@@ -63,6 +63,17 @@ void	free_info(t_info *info)
 
 int	err_msg(char *msg)
 {
+	write(2, "Error: ", 7);
 	write(2, msg, p_strlen(msg));
 	return (-1);
+}
+
+int	p_print(t_info *info, t_philo *philo, char *str, char *color)
+{
+	if (pthread_mutex_lock(info->msg))
+		return (-1);
+	printf("%s%ldphilo %d %s%s\n", get_time(), color, philo->id, str, END);
+	if (pthread_mutex_unlock(info->msg))
+		return (-1);
+	return (0);
 }
