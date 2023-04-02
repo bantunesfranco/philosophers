@@ -47,7 +47,7 @@ typedef struct s_info
 	t_philo			*philos;
 	pthread_t		*bossman;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	msg;
+	pthread_mutex_t	*msg;
 }	t_info;
 
 # define RED "\033[1;31m"
@@ -90,9 +90,15 @@ long	get_time(void);
 long	delta_time(long time);
 void	do_task(long time);
 
+/* action */
+bool	p_eat(t_info *info, t_philo *philo);
+bool	p_sleep(t_info *info, t_philo *philo);
+bool	p_think(t_info *info, t_philo *philo);
+bool	has_died(t_info *info, t_philo *philo);
+
 /* exit */
 void	kill_philos(t_info *info);
-void	destroy_forks(t_info *info);
+void	clean_forks(t_info *info, int n);
 void	free_info(t_info *info);
 
 #endif

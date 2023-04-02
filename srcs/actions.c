@@ -12,13 +12,13 @@
 
 #include <philo.h>
 
-bool	eat(t_info *info, t_philo *philo)
+bool	p_eat(t_info *info, t_philo *philo)
 {
-	if (pthread_mutex_lock(info->forks[philo->fork.left]))
+	if (pthread_mutex_lock(&info->forks[philo->fork.left]))
 		return (false);
 	if (p_print(info, philo, FORK, GREEN) == -1)
 		return (false);
-	if (pthread_mutex_lock(info->forks[philo->fork.right]))
+	if (pthread_mutex_lock(&info->forks[philo->fork.right]))
 		return (false);
 	if (p_print(info, philo, FORK, GREEN) == -1)
 		return (false);
@@ -27,12 +27,12 @@ bool	eat(t_info *info, t_philo *philo)
 	philo->time_to_die = get_time();
 	do_task(info->time_to_eat);
 	philo->nb_times_ate++;
-	pthread_mutex_lock(info->forks[philo->fork.left]);
-	pthread_mutex_lock(info->forks[philo->fork.right]);
+	pthread_mutex_lock(&info->forks[philo->fork.left]);
+	pthread_mutex_lock(&info->forks[philo->fork.right]);
 	return (true);
 }
 
-bool	sleep(t_info *info, t_philo *philo)
+bool	p_sleep(t_info *info, t_philo *philo)
 {
 	if (p_print(info, philo, SLEEP, GREEN) == -1)
 		return (false);
@@ -41,7 +41,7 @@ bool	sleep(t_info *info, t_philo *philo)
 	return (true);
 }
 
-bool	think(t_info *info, t_philo *philo)
+bool	p_think(t_info *info, t_philo *philo)
 {
 	if (p_print(info, philo, THINK, GREEN) == -1)
 		return (false);

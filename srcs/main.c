@@ -33,7 +33,7 @@ int	init_info(t_info *info, char **argv)
 		return (err_msg(ARG4));
 	if (info->nb_times_to_eat == -1)
 		return (err_msg(ARG5));
-	info->has_died = false;
+	info->dead = false;
 	return (0);
 }
 

@@ -14,7 +14,18 @@
 
 void	work(void *param)
 {
-	const t_info	*info = param;
+	const t_info	*info = (t_info *)param;
+	int				int;
 
-	while ()
+	if (info->time_to_eat > 0)
+	{
+		while (info->philos[i].nb_times_ate < info->nb_times_to_eat)
+		{
+			working(info, i);
+		}
+	}
+	else
+	{
+
+	}
 }

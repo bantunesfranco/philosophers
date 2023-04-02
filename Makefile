@@ -16,13 +16,12 @@ DIR_O = obj
 
 INCS = -I $(DIR_I)
 
-SRCS = srcs/actions.c srcs/forks.c srcs/main.c srcs/philos.c srcs/routine.c \
-srcs/threads.c srcs/time.c srcs/utils.c
+SRCS = actions.c forks.c main.c philos.c routine.c \
+threads.c time.c utils.c
 
 OBJS =  ${SRCS:%.c=${DIR_O}/%.o}
 
 all: ${NAME}
-
 
 ${NAME}: ${OBJS} ${DIR_I}/${NAME}.h
 
@@ -30,8 +29,8 @@ ${NAME}: ${OBJS} ${DIR_I}/${NAME}.h
 	@${CC} ${CFLAGS} ${OBJS} -o ${NAME} 
 	@echo "${GREEN}Done!${END}"
 
-${OBJS}: ${DIR_O}/%.o: %.c
-# @mkdir -p ${DIR_O}
+${OBJS}: ${DIR_O}/%.o: ${DIR_S}/%.c
+	@mkdir -p ${DIR_O}
 	@echo "${BLUE}Compiling $<${END}"
 	@${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
