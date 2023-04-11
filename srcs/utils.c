@@ -72,7 +72,7 @@ int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 {
 	if (pthread_mutex_lock(info->msg))
 		return (-1);
-	printf("%s%ldphilo %d %s%s\n", get_time(), color, philo->id, str, END);
+	printf("%s%ld : philo %d %s%s\n", color, get_time(), philo->id, str, END);
 	if (pthread_mutex_unlock(info->msg))
 		return (-1);
 	return (0);

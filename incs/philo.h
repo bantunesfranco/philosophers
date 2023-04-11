@@ -90,6 +90,9 @@ long	get_time(void);
 long	delta_time(long time);
 void	do_task(long time);
 
+/* routine */
+void	*work(void *param);
+
 /* action */
 bool	p_eat(t_info *info, t_philo *philo);
 bool	p_sleep(t_info *info, t_philo *philo);
@@ -97,6 +100,7 @@ bool	p_think(t_info *info, t_philo *philo);
 bool	has_died(t_info *info, t_philo *philo);
 
 /* exit */
+int		join_philos(t_info *info);
 void	kill_philos(t_info *info);
 void	clean_forks(t_info *info, int n);
 void	free_info(t_info *info);
