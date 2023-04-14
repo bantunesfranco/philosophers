@@ -45,7 +45,7 @@ int	p_atoi(char *str)
 	}
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
-		nb = nb * 10 + (*str - '0');
+		nb = nb * 10 + (str[i] - '0');
 		i++;
 	}
 	if ((str[i] && (str[i] < '0' || str[i] > '9')) \
@@ -70,10 +70,10 @@ int	err_msg(char *msg)
 
 int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 {
-	if (pthread_mutex_lock(info->msg))
+	if (pthread_mutex_lock(&info->msg))
 		return (-1);
 	printf("%s%ld : philo %d %s%s\n", color, get_time(), philo->id, str, END);
-	if (pthread_mutex_unlock(info->msg))
+	if (pthread_mutex_unlock(&info->msg))
 		return (-1);
 	return (0);
 }

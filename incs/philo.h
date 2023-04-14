@@ -45,9 +45,9 @@ typedef struct s_info
 	int				t0;
 	bool			dead;
 	t_philo			*philos;
-	pthread_t		*bossman;
+	pthread_t		bossman;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*msg;
+	pthread_mutex_t	msg;
 }	t_info;
 
 # define RED "\033[1;31m"
@@ -92,6 +92,7 @@ void	do_task(long time);
 
 /* routine */
 void	*work(void *param);
+void	*payday(void *param);
 
 /* action */
 bool	p_eat(t_info *info, t_philo *philo);

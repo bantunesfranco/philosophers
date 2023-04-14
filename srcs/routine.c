@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/03 11:12:08 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/04/12 19:16:08 by bruno         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,14 @@ void	*work(void *param)
 			working(info, i);
 		}
 	}
+	return (NULL);
+}
+
+void	*payday(void *param)
+{
+	t_info	*info;
+
+	info = (t_info *)param;
+	printf("bossman of %d\n", info->nb_philos);
 	return (NULL);
 }

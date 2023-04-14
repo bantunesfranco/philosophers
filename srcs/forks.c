@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:52:05 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/03/27 18:52:05 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/04/14 13:26:45 by bruno         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	create_forks(t_info *info)
 	int	i;
 
 	i = 0;
-	if (pthread_mutex_init(info->msg, NULL))
+	if (pthread_mutex_init(&info->msg, NULL))
 		return (err_msg("Error: Create mutex"));
 	info->forks = (pthread_mutex_t *)malloc(info->nb_philos * sizeof(pthread_mutex_t));
 	if (!info->forks)
@@ -36,10 +36,11 @@ void	clean_forks(t_info *info, int n)
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(info->msg);
+	pthread_mutex_destroy(&info->msg);
 	while (i < n)
 	{
 		pthread_mutex_destroy(&info->forks[i]);
 		i++;
 	}
+	free(info->forks);
 }
