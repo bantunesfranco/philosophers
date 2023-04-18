@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/12 19:16:08 by bruno         ########   odam.nl         */
+/*   Updated: 2023/04/16 19:24:09 by bruno         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 
 void	working(t_info *info, int i)
 {
-	printf("%d %d\n", info->nb_philos, i);
+	if (p_eat(info, &info->philos[i]) == false)
+	{
+		info->dead = true;
+		return ;
+	}
+	if (p_think(info, &info->philos[i]) == false)
+	{
+		info->dead = true;
+		return ;
+	}
+	if (p_sleep(info, &info->philos[i]) == false)
+	{
+		info->dead = true;
+		return ;
+	}
 }
 
 void	*work(void *param)

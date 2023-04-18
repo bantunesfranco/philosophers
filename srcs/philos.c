@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 10:47:15 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/03/22 17:00:31 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/04/16 19:32:25 by bruno         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	join_philos(t_info *info)
 			return (err_msg("Join thread\n"));
 		i++;
 	}
+	if (pthread_join(info->bossman, NULL))
+		return (err_msg("Join thread\n"));
 	return (0);
 }
 

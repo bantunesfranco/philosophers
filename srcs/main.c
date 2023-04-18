@@ -52,5 +52,6 @@ int	main(int argc, char **argv)
 	if (create_forks(&info) == -1)
 		return (1);
 	clean_forks(&info, info.nb_philos);
+	join_philos(&info);
 	return (0);
 }
