@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/26 11:46:51 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/04/26 12:06:07 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ bool	p_eat(t_info *info, t_philo *philo)
 	philo->time_to_die = get_time();
 	do_task(info->time_to_eat);
 	philo->nb_times_ate++;
-	pthread_mutex_unlock(&info->forks[philo->fork.left]);
-	pthread_mutex_unlock(&info->forks[philo->fork.right]);
+	if (pthread_mutex_unlock(&info->forks[philo->fork.left]))
+		return (false);
+	if (pthread_mutex_unlock(&info->forks[philo->fork.right]))
+		return (false);
 	return (true);
 }
 
