@@ -54,5 +54,6 @@ Mkfile.old
 dkms.conf
 
 # Others
-
+*.vscode
+*.json
 *.pdf

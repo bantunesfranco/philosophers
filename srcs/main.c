@@ -13,6 +13,12 @@
 #include <philo.h>
 #include <limits.h>
 
+void	free_info(t_info *info)
+{
+	free(info->philos);
+	free(info->forks);
+}
+
 int	init_info(t_info *info, char **argv)
 {
 	info->nb_philos = p_atoi(argv[1]);
@@ -52,6 +58,6 @@ int	main(int argc, char **argv)
 	if (create_forks(&info) == -1)
 		return (1);
 	clean_forks(&info, info.nb_philos);
-	join_philos(&info);
+	join_threads(&info);
 	return (0);
 }

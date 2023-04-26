@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/16 19:26:37 by bruno         ########   odam.nl         */
+/*   Updated: 2023/04/26 11:46:51 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ bool	p_eat(t_info *info, t_philo *philo)
 	philo->time_to_die = get_time();
 	do_task(info->time_to_eat);
 	philo->nb_times_ate++;
-	pthread_mutex_lock(&info->forks[philo->fork.left]);
-	pthread_mutex_lock(&info->forks[philo->fork.right]);
+	pthread_mutex_unlock(&info->forks[philo->fork.left]);
+	pthread_mutex_unlock(&info->forks[philo->fork.right]);
 	return (true);
 }
 
@@ -52,7 +52,7 @@ bool	has_died(t_info *info, t_philo *philo)
 {
 	const int	dt = delta_time(philo->time_to_die);
 
-	if (dt - info->time_to_die >= 0)
+	if (info->time_to_die - dt <= 0)
 	{
 		info->dead = true;
 		p_print(info, philo, DEAD, RED);

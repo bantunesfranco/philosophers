@@ -49,16 +49,9 @@ int	p_atoi(char *str)
 		i++;
 	}
 	if ((str[i] && (str[i] < '0' || str[i] > '9')) \
-	|| (nb * mult < INT_MIN || nb * mult > INT_MAX))
+	|| (nb * mult < 0 || nb * mult > INT_MAX))
 		return (-1);
 	return ((int)(nb * mult));
-}
-
-
-void	free_info(t_info *info)
-{
-	free(info->philos);
-	free(info->forks);
 }
 
 int	err_msg(char *msg)

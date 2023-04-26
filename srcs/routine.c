@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/16 19:24:09 by bruno         ########   odam.nl         */
+/*   Updated: 2023/04/26 11:52:37 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void	*payday(void *param)
 	t_info	*info;
 
 	info = (t_info *)param;
+	if (pthread_mutex_lock(&info->msg))
+		return (NULL);
 	printf("bossman of %d\n", info->nb_philos);
+	if (pthread_mutex_unlock(&info->msg))
+		return (NULL);
 	return (NULL);
 }
