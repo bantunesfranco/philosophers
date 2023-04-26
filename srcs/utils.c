@@ -63,9 +63,19 @@ int	err_msg(char *msg)
 
 int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 {
+	const long	dt = delta_time(info->t0);
+
+	if (info->dead == true)
+		return (-1);
 	if (pthread_mutex_lock(&info->msg))
 		return (-1);
-	printf("%s%ld : philo %d %s%s\n", color, get_time(), philo->id, str, END);
+	if (info->dead == true)
+	{
+		pthread_mutex_unlock(&info->msg);
+		return (-1);
+	}
+	else
+		printf("%s%ld : philo %d %s%s\n", color, dt, philo->id, str, END);
 	if (pthread_mutex_unlock(&info->msg))
 		return (-1);
 	return (0);

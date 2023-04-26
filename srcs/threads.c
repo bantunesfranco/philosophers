@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:50:11 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/26 11:51:30 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/04/26 17:02:54 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ int	create_threads(t_info *info)
 	info->t0 = get_time();
 	while (i < info->nb_philos)
 	{
+		info->nb_threads = i;
 		if (pthread_create(&info->philos[i].thread, NULL, &work, info))
 			return (err_msg("Create thread\n"));
-		usleep(1000);
+		// usleep(1000);
 		i++;
 	}
 	if (pthread_create(&info->bossman, NULL, &payday, info))
 		return (err_msg("Create thread\n"));
-	usleep(1000);
+	// usleep(1000);
 	return (join_threads(info));
 }
 

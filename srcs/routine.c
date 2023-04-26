@@ -6,29 +6,24 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/26 11:52:37 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/04/26 17:52:24 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-void	working(t_info *info, int i)
+static int	working(t_info *info, int i)
 {
-	if (p_eat(info, &info->philos[i]) == false)
+	if (p_eat(info, i) == false)
+		return (-1);
+	if (info->philos[i].nb_times_ate != info->nb_times_to_eat)
 	{
-		info->dead = true;
-		return ;
+		if (p_think(info, i) == false)
+			return (-1);
+		if (p_sleep(info, i) == false)
+			return (-1);
 	}
-	if (p_think(info, &info->philos[i]) == false)
-	{
-		info->dead = true;
-		return ;
-	}
-	if (p_sleep(info, &info->philos[i]) == false)
-	{
-		info->dead = true;
-		return ;
-	}
+	return (0);
 }
 
 void	*work(void *param)
@@ -37,19 +32,22 @@ void	*work(void *param)
 	int		i;
 
 	info = (t_info *)param;
-	i = 0;
-	if (info->time_to_eat > 0)
+	i = info->nb_threads;
+	if (info->nb_times_to_eat > 0)
 	{
-		while (info->philos[i].nb_times_ate < info->nb_times_to_eat)
+		while (info->philos[i].nb_times_ate < info->nb_times_to_eat \
+		&& info->dead == false)
 		{
-			working(info, i);
+			if (working(info, i) == -1)
+				break ;
 		}
 	}
 	else
 	{
 		while (info->dead == false)
 		{
-			working(info, i);
+			if (working(info, i) == -1)
+				break ;
 		}
 	}
 	return (NULL);
@@ -58,12 +56,26 @@ void	*work(void *param)
 void	*payday(void *param)
 {
 	t_info	*info;
+	int		i;
 
+	i = 0;
 	info = (t_info *)param;
-	if (pthread_mutex_lock(&info->msg))
-		return (NULL);
-	printf("bossman of %d\n", info->nb_philos);
-	if (pthread_mutex_unlock(&info->msg))
-		return (NULL);
+	if (info->nb_times_to_eat > 0)
+	{
+		while (info->philos[i].nb_times_ate < info->nb_times_to_eat \
+		&& info->dead == false)
+		{
+			if (has_died(info, &i) == true)
+				break ;
+		}
+	}
+	else
+	{
+		while (info->dead == false)
+		{
+			if (has_died(info, &i) == true)
+				break ;
+		}
+	}
 	return (NULL);
 }

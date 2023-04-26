@@ -37,6 +37,7 @@ typedef struct s_philo
 
 typedef struct s_info
 {
+	int				nb_threads;
 	int				nb_philos;
 	int				time_to_die;
 	int				time_to_eat;
@@ -95,10 +96,10 @@ void	*work(void *param);
 void	*payday(void *param);
 
 /* action */
-bool	p_eat(t_info *info, t_philo *philo);
-bool	p_sleep(t_info *info, t_philo *philo);
-bool	p_think(t_info *info, t_philo *philo);
-bool	has_died(t_info *info, t_philo *philo);
+bool	p_eat(t_info *info, int i);
+bool	p_sleep(t_info *info, int i);
+bool	p_think(t_info *info, int i);
+bool	has_died(t_info *info, int *i);
 
 /* exit */
 int		join_threads(t_info *info);
