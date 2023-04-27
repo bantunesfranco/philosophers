@@ -53,11 +53,20 @@ int	main(int argc, char **argv)
 		return (1);
 	if (create_philos(&info) == -1)
 		return (1);
-	if (create_threads(&info) == -1)
-		return (1);
 	if (create_forks(&info) == -1)
 		return (1);
+	if (info.nb_philos == 1)
+	{
+		if (one_philo(&info) == -1)
+			return (1);
+	}
+	else
+	{
+		if (create_threads(&info) == -1)
+			return (1);
+		join_threads(&info);
+	}
 	clean_forks(&info, info.nb_philos);
-	join_threads(&info);
+	free_info(&info);
 	return (0);
 }

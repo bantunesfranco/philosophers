@@ -51,14 +51,15 @@ bool	p_think(t_info *info, int i)
 
 bool	has_died(t_info *info, int *i)
 {
-	const int	dt = delta_time(info->philos[*i].time_to_die);
-
+	int	dt;
+	
+	dt = delta_time(info->philos[*i].time_to_die);
 	if (*i == info->nb_philos)
 		*i = 0;
 	if (dt > info->time_to_die)
 	{
-		info->dead = true;
 		p_print(info, &info->philos[*i], DEAD, RED);
+		info->dead = true;
 		return (true);
 	}
 	i++;

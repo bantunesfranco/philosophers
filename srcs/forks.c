@@ -42,5 +42,17 @@ void	clean_forks(t_info *info, int n)
 		pthread_mutex_destroy(&info->forks[i]);
 		i++;
 	}
-	free(info->forks);
+}
+
+void	unlock_forks(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->nb_philos)
+	{
+		pthread_mutex_unlock(&info->forks[i]);
+		i++;
+	}
+	pthread_mutex_unlock(&info->msg);
 }

@@ -28,30 +28,25 @@ int	p_strlen(char *str)
 int	p_atoi(char *str)
 {
 	long long	nb;
-	int			mult;
 	int			i;
 
 	i = 0;
 	nb = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\n' \
-	|| str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
-		i++;
-	if ((str[i] == '-' || str[i] == '+'))
+	if ((str[0] == '-' || str[0] == '+'))
 	{	
 		if (str[i] == '-')
-			mult = -1;
+			return (-1);
 		i++;
 	}
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + (str[i] - '0');
 		i++;
+		if ((str[i] && (str[i] < '0' || str[i] > '9')) \
+		|| (nb < 0 || nb > INT_MAX))
+			return (-1);
 	}
-	if ((str[i] && (str[i] < '0' || str[i] > '9')) \
-	|| (nb * mult < 0 || nb * mult > INT_MAX))
-		return (-1);
-	return ((int)(nb * mult));
+	return ((int)nb);
 }
 
 int	err_msg(char *msg)
@@ -63,7 +58,7 @@ int	err_msg(char *msg)
 
 int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 {
-	const long	dt = delta_time(info->t0);
+	const int	dt = delta_time(info->t0);
 
 	if (info->dead == true)
 		return (-1);
@@ -75,7 +70,7 @@ int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 		return (-1);
 	}
 	else
-		printf("%s%ld : philo %d %s%s\n", color, dt, philo->id, str, END);
+		printf("%s%d\t%d  %s%s\n", color, dt, philo->id, str, END);
 	if (pthread_mutex_unlock(&info->msg))
 		return (-1);
 	return (0);

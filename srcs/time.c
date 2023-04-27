@@ -12,7 +12,7 @@
 
 #include <philo.h>
 
-long	get_time(void)
+long long	get_time(void)
 {
 	struct timeval	time;
 
@@ -21,9 +21,9 @@ long	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec * 0.001);
 }
 
-long	delta_time(long time)
+long long	delta_time(long long time)
 {
-	long	now;
+	long long	now;
 
 	now = get_time();
 	if (now == -1)
@@ -31,7 +31,7 @@ long	delta_time(long time)
 	return (now - time);
 }
 
-void	do_task(long time)
+void	do_task(long long time)
 {
 	usleep(time * 1000);
 }

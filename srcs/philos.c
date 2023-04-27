@@ -17,10 +17,10 @@ int	create_philos(t_info *info)
 	int			i;
 	int			j;
 
-	i = 0;
 	info->philos = (t_philo *)malloc(info->nb_philos * sizeof(t_philo));
 	if (!info->philos)
 		return (err_msg("Malloc\n"));
+	i = 0;
 	while (i < info->nb_philos)
 	{
 		j = i + 1;
@@ -33,5 +33,14 @@ int	create_philos(t_info *info)
 		info->philos[i].fork.right = j;
 		i++;
 	}
+	return (0);
+}
+
+int	one_philo(t_info *info)
+{
+	info->t0 = get_time();
+	p_print(info, &info->philos[0], FORK, GREEN);
+	do_task(info->time_to_die);
+	p_print(info, &info->philos[0], DEAD, RED);
 	return (0);
 }

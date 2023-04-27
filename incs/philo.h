@@ -30,7 +30,7 @@ typedef struct s_philo
 {
 	int			id;
 	int			nb_times_ate;
-	long long	time_to_die;
+	int			time_to_die;
 	t_fork		fork;
 	pthread_t	thread;
 }	t_philo;
@@ -87,13 +87,14 @@ int		create_threads(t_info *info);
 int		create_forks(t_info *info);
 
 /* time */
-long	get_time(void);
-long	delta_time(long time);
-void	do_task(long time);
+int		get_time(void);
+int		delta_time(int time);
+void	do_task(int time);
 
 /* routine */
 void	*work(void *param);
 void	*payday(void *param);
+int		one_philo(t_info *info);
 
 /* action */
 bool	p_eat(t_info *info, int i);
@@ -105,6 +106,7 @@ bool	has_died(t_info *info, int *i);
 int		join_threads(t_info *info);
 void	kill_philos(t_info *info);
 void	clean_forks(t_info *info, int n);
+void	unlock_forks(t_info *info);
 void	free_info(t_info *info);
 
 #endif
