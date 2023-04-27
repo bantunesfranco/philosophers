@@ -66,6 +66,7 @@ int	main(int argc, char **argv)
 			return (1);
 		join_threads(&info);
 	}
+	unlock_forks(&info);
 	clean_forks(&info, info.nb_philos);
 	free_info(&info);
 	return (0);

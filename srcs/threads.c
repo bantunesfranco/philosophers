@@ -21,12 +21,12 @@ int	create_threads(t_info *info)
 	while (i < info->nb_philos)
 	{
 		info->nb_threads = i;
-		if (pthread_create(&info->philos[i].thread, NULL, &work, info))
+		if (pthread_create(&info->philos[i].thread, NULL, &work, (void *)info))
 			return (err_msg("Create thread\n"));
 		usleep(1000);
 		i++;
 	}
-	if (pthread_create(&info->bossman, NULL, &payday, info))
+	if (pthread_create(&info->bossman, NULL, &payday, (void *)info))
 		return (err_msg("Create thread\n"));
 	usleep(1000);
 	return (join_threads(info));

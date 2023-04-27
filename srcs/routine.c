@@ -37,7 +37,10 @@ void	*work(void *param)
 	{
 		while (info->philos[i].nb_times_ate < info->nb_times_to_eat \
 		&& info->dead == false)
-			working(info, i);
+		{
+			if (working(info, i) == -1)
+				break ;
+		}
 	}
 	else
 	{

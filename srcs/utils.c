@@ -38,12 +38,16 @@ int	p_atoi(char *str)
 			return (-1);
 		i++;
 	}
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	while (str[i])
 	{
-		nb = nb * 10 + (str[i] - '0');
-		i++;
-		if ((str[i] && (str[i] < '0' || str[i] > '9')) \
-		|| (nb < 0 || nb > INT_MAX))
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			nb = nb * 10 + (str[i] - '0');
+			i++;
+			if (nb < 0 || nb > INT_MAX)
+				return (-1);
+		}
+		else
 			return (-1);
 	}
 	return ((int)nb);
@@ -58,8 +62,9 @@ int	err_msg(char *msg)
 
 int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 {
-	const int	dt = delta_time(info->t0);
+	int	dt;
 
+	dt = delta_time(info->t0);
 	if (info->dead == true)
 		return (-1);
 	if (pthread_mutex_lock(&info->msg))
@@ -70,7 +75,7 @@ int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 		return (-1);
 	}
 	else
-		printf("%s%d\t%d  %s%s\n", color, dt, philo->id, str, END);
+		printf("%s%d\t%d %s%s\n", color, dt, philo->id, str, END);
 	if (pthread_mutex_unlock(&info->msg))
 		return (-1);
 	return (0);

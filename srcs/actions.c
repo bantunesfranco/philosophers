@@ -24,13 +24,13 @@ bool	p_eat(t_info *info, int i)
 		return (false);
 	if (p_print(info, &info->philos[i], EAT, GREEN) == -1)
 		return (false);
-	info->philos[i].time_to_die = get_time();
 	do_task(info->time_to_eat);
-	info->philos[i].nb_times_ate++;
 	if (pthread_mutex_unlock(&info->forks[info->philos[i].fork.left]))
 		return (false);
 	if (pthread_mutex_unlock(&info->forks[info->philos[i].fork.right]))
 		return (false);
+	info->philos[i].time_to_die = get_time();
+	info->philos[i].nb_times_ate++;
 	return (true);
 }
 
@@ -52,7 +52,7 @@ bool	p_think(t_info *info, int i)
 bool	has_died(t_info *info, int *i)
 {
 	int	dt;
-	
+
 	dt = delta_time(info->philos[*i].time_to_die);
 	if (*i == info->nb_philos)
 		*i = 0;

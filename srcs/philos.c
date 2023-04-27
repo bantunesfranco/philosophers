@@ -14,8 +14,8 @@
 
 int	create_philos(t_info *info)
 {
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
 	info->philos = (t_philo *)malloc(info->nb_philos * sizeof(t_philo));
 	if (!info->philos)

@@ -49,10 +49,10 @@ void	unlock_forks(t_info *info)
 	int	i;
 
 	i = 0;
+	pthread_mutex_unlock(&info->msg);
 	while (i < info->nb_philos)
 	{
 		pthread_mutex_unlock(&info->forks[i]);
 		i++;
 	}
-	pthread_mutex_unlock(&info->msg);
 }
