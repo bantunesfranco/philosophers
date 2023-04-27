@@ -55,14 +55,16 @@ int	p_atoi(char *str)
 
 int	err_msg(char *msg)
 {
-	write(2, "Error: ", 7);
-	write(2, msg, p_strlen(msg));
+	if (write(2, "Error: ", 7) == 1)
+		return (-1);
+	if (write(2, msg, p_strlen(msg)) == -1)
+		return (-1);
 	return (-1);
 }
 
 int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 {
-	int	dt;
+	long long	dt;
 
 	dt = delta_time(info->t0);
 	if (info->dead == true)
@@ -75,7 +77,7 @@ int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 		return (-1);
 	}
 	else
-		printf("%s%d\t%d %s%s\n", color, dt, philo->id, str, END);
+		printf("%s%lld\t%d %s%s\n", color, dt, philo->id, str, END);
 	if (pthread_mutex_unlock(&info->msg))
 		return (-1);
 	return (0);

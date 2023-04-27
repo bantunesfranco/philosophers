@@ -58,7 +58,8 @@ bool	has_died(t_info *info, int *i)
 		*i = 0;
 	if (dt > info->time_to_die)
 	{
-		p_print(info, &info->philos[*i], DEAD, RED);
+		if (p_print(info, &info->philos[*i], DEAD, RED) == -1)
+			return (false);
 		info->dead = true;
 		return (true);
 	}

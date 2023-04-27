@@ -7,7 +7,7 @@ CYAN=\033[1;36m
 END=\033[0m
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -pthread #-g  -O3 -fsanitize=thread 
 NAME = philo
 
 DIR_S = srcs
@@ -16,8 +16,7 @@ DIR_O = obj
 
 INCS = -I $(DIR_I)
 
-SRCS = actions.c forks.c main.c philos.c routine.c \
-threads.c time.c utils.c
+SRCS = actions.c forks.c main.c philos.c routine.c threads.c time.c utils.c
 
 OBJS =  ${SRCS:%.c=${DIR_O}/%.o}
 

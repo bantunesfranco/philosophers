@@ -30,7 +30,7 @@ typedef struct s_philo
 {
 	int			id;
 	int			nb_times_ate;
-	int			time_to_die;
+	long long	time_to_die;
 	t_fork		fork;
 	pthread_t	thread;
 }	t_philo;
@@ -43,7 +43,7 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_times_to_eat;
-	int				t0;
+	long long		t0;
 	bool			dead;
 	t_philo			*philos;
 	pthread_t		bossman;
@@ -76,37 +76,37 @@ The last parameter is optional\n"
 # define DEAD "died"
 
 /* utils */
-int		err_msg(char *msg);
-int		p_atoi(char *str);
-int		p_strlen(char *str);
-int		p_print(t_info *info, t_philo *philo, char *str, char *color);
+int			err_msg(char *msg);
+int			p_atoi(char *str);
+int			p_strlen(char *str);
+int			p_print(t_info *info, t_philo *philo, char *str, char *color);
 
 /* init */
-int		create_philos(t_info *info);
-int		create_threads(t_info *info);
-int		create_forks(t_info *info);
+int			create_philos(t_info *info);
+int			create_threads(t_info *info);
+int			create_forks(t_info *info);
 
 /* time */
-int		get_time(void);
-int		delta_time(int time);
-void	do_task(int time);
+long long	get_time(void);
+long long	delta_time(long long time);
+void		do_task(long long time);
 
 /* routine */
-void	*work(void *param);
-void	*payday(void *param);
-int		one_philo(t_info *info);
+void		*work(void *param);
+void		*payday(void *param);
+int			one_philo(t_info *info);
 
 /* action */
-bool	p_eat(t_info *info, int i);
-bool	p_sleep(t_info *info, int i);
-bool	p_think(t_info *info, int i);
-bool	has_died(t_info *info, int *i);
+bool		p_eat(t_info *info, int i);
+bool		p_sleep(t_info *info, int i);
+bool		p_think(t_info *info, int i);
+bool		has_died(t_info *info, int *i);
 
 /* exit */
-int		join_threads(t_info *info);
-void	kill_philos(t_info *info);
-void	clean_forks(t_info *info, int n);
-void	unlock_forks(t_info *info);
-void	free_info(t_info *info);
+int			join_threads(t_info *info);
+void		kill_philos(t_info *info);
+void		clean_forks(t_info *info, int n);
+void		unlock_forks(t_info *info);
+void		free_info(t_info *info);
 
 #endif
