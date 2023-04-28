@@ -33,11 +33,9 @@ int	p_atoi(char *str)
 	i = 0;
 	nb = 0;
 	if ((str[0] == '-' || str[0] == '+'))
-	{	
-		if (str[i] == '-')
 			return (-1);
-		i++;
-	}
+	if (!p_strlen(str))
+		return (-1);
 	while (str[i])
 	{
 		if (str[i] >= '0' && str[i] <= '9')
@@ -67,6 +65,8 @@ int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 	long long	dt;
 
 	dt = delta_time(info->t0);
+	if (dt == -1)
+		return (-1);
 	if (info->dead == true)
 		return (-1);
 	if (pthread_mutex_lock(&info->msg))

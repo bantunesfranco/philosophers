@@ -7,7 +7,7 @@ CYAN=\033[1;36m
 END=\033[0m
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread #-g  -O3 -fsanitize=thread 
+CFLAGS = -Wall -Werror -Wextra -pthread -g -O3 -fsanitize=thread
 NAME = philo
 
 DIR_S = srcs

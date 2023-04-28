@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 10:47:15 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/26 11:44:15 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/04/28 13:20:03 by bruno         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	create_philos(t_info *info)
 int	one_philo(t_info *info)
 {
 	info->t0 = get_time();
-	p_print(info, &info->philos[0], FORK, GREEN);
+	if (p_print(info, &info->philos[0], FORK, GREEN) == -1)
+		return (-1);
 	do_task(info->time_to_die);
-	p_print(info, &info->philos[0], DEAD, RED);
+	if (p_print(info, &info->philos[0], DEAD, RED) == -1)
+		return (-1);
 	return (0);
 }

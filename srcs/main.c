@@ -64,7 +64,7 @@ int	main(int argc, char **argv)
 	{
 		if (create_threads(&info) == -1)
 			return (1);
-		unlock_forks(&info);
+		// unlock_forks(&info);
 		clean_forks(&info, info.nb_philos);
 	}
 	free_info(&info);
