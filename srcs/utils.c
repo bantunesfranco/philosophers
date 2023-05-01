@@ -33,7 +33,7 @@ int	p_atoi(char *str)
 	i = 0;
 	nb = 0;
 	if ((str[0] == '-' || str[0] == '+'))
-			return (-1);
+		return (-1);
 	if (!p_strlen(str))
 		return (-1);
 	while (str[i])

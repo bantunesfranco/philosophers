@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/04/26 17:52:24 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/05/01 18:04:55 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	*work(void *param)
 	i = info->nb_threads;
 	if (info->nb_times_to_eat > 0)
 	{
-		while (info->philos[i].nb_times_ate < info->nb_times_to_eat \
-		&& info->dead == false)
+		while (info->philos[i].nb_times_ate < info->nb_times_to_eat)
 		{
 			if (working(info, i) == -1)
 				break ;

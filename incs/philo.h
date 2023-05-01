@@ -20,6 +20,21 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
+typedef struct s_info
+{
+	int				nb_threads;
+	int				nb_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nb_times_to_eat;
+	long long		t0;
+	bool			dead;
+	pthread_t		bossman;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	msg;
+}	t_info;
+
 typedef struct s_fork
 {
 	int	left;
@@ -33,23 +48,10 @@ typedef struct s_philo
 	long long	time_to_die;
 	t_fork		fork;
 	pthread_t	thread;
+	t_info		*info;
 }	t_philo;
 
-typedef struct s_info
-{
-	int				nb_threads;
-	int				nb_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				nb_times_to_eat;
-	long long		t0;
-	bool			dead;
-	t_philo			*philos;
-	pthread_t		bossman;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	msg;
-}	t_info;
+
 
 # define RED "\033[1;31m"
 # define GREEN "\033[1;32m"

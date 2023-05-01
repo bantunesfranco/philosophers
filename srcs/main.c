@@ -45,15 +45,16 @@ int	init_info(t_info *info, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_info	info;
+	t_info		info;
+	t_philos	philos;
 
 	if (argc < 5 || argc > 6)
 		return (err_msg(ARG0), 1);
 	if (init_info(&info, argv) == -1)
 		return (1);
-	if (create_philos(&info) == -1)
+	if (create_philos(&info, &philos) == -1)
 		return (1);
-	if (create_forks(&info) == -1)
+	if (create_forks(&info, &philos) == -1)
 		return (1);
 	if (info.nb_philos == 1)
 	{
