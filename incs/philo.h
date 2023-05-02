@@ -33,20 +33,16 @@ typedef struct s_info
 	pthread_t		bossman;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg;
+	pthread_mutex_t	death;
 }	t_info;
-
-typedef struct s_fork
-{
-	int	left;
-	int	right;
-}	t_fork;
 
 typedef struct s_philo
 {
 	int			id;
 	int			nb_times_ate;
+	int			fl;
+	int			fr;
 	long long	time_to_die;
-	t_fork		fork;
 	pthread_t	thread;
 	t_info		*info;
 }	t_philo;
@@ -84,8 +80,8 @@ int			p_strlen(char *str);
 int			p_print(t_info *info, t_philo *philo, char *str, char *color);
 
 /* init */
-int			create_philos(t_info *info);
-int			create_threads(t_info *info);
+int			create_philos(t_info *info, t_philo *philos);
+int			create_threads(t_info *info, t_philo *philos);
 int			create_forks(t_info *info);
 
 /* time */
@@ -96,19 +92,18 @@ void		do_task(long long time);
 /* routine */
 void		*work(void *param);
 void		*payday(void *param);
-int			one_philo(t_info *info);
+int			one_philo(t_info *info, t_philo *philos);
 
 /* action */
-bool		p_eat(t_info *info, int i);
-bool		p_sleep(t_info *info, int i);
-bool		p_think(t_info *info, int i);
-bool		has_died(t_info *info, int *i);
+bool		p_eat(t_info *info, t_philo *philo);
+bool		p_sleep(t_info *info, t_philo *philo);
+bool		p_think(t_info *info, t_philo *philo);
+bool		has_died(t_philo *philo, int *i);
 
 /* exit */
 int			join_threads(t_info *info);
-void		kill_philos(t_info *info);
 void		clean_forks(t_info *info, int n);
 void		unlock_forks(t_info *info);
-void		free_info(t_info *info);
+void		free_info(t_info *info, t_philo *philos);
 
 #endif

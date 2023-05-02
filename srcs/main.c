@@ -13,9 +13,9 @@
 #include <philo.h>
 #include <limits.h>
 
-void	free_info(t_info *info)
+void	free_info(t_info *info, t_philo *philos)
 {
-	free(info->philos);
+	free(philos);
 	free(info->forks);
 }
 
@@ -45,29 +45,30 @@ int	init_info(t_info *info, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_info		info;
-	t_philos	philos;
+	t_info	info;
+	t_philo	*philos;
 
 	if (argc < 5 || argc > 6)
 		return (err_msg(ARG0), 1);
 	if (init_info(&info, argv) == -1)
 		return (1);
-	if (create_philos(&info, &philos) == -1)
+	philos = create_philos(&info);
+	if (philos == NULL)
 		return (1);
-	if (create_forks(&info, &philos) == -1)
+	if (create_forks(&info) == -1)
 		return (1);
 	if (info.nb_philos == 1)
 	{
-		if (one_philo(&info) == -1)
+		if (one_philo(&info, &philos) == -1)
 			return (1);
 	}
 	else
 	{
-		if (create_threads(&info) == -1)
+		if (create_threads(&info, &philos) == -1)
 			return (1);
 		// unlock_forks(&info);
 		clean_forks(&info, info.nb_philos);
 	}
-	free_info(&info);
+	free_info(&info, &philos);
 	return (0);
 }

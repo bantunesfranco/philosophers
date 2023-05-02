@@ -6,21 +6,21 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/01 18:04:55 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/05/02 10:15:38 by bruno         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-static int	working(t_info *info, int i)
+static int	working(t_info *info, t_philo *philo)
 {
-	if (p_eat(info, i) == false)
+	if (p_eat(info, philo) == false)
 		return (-1);
-	if (info->philos[i].nb_times_ate != info->nb_times_to_eat)
+	if (philos->nb_times_ate != info->nb_times_to_eat)
 	{
-		if (p_think(info, i) == false)
+		if (p_think(info, philo) == false)
 			return (-1);
-		if (p_sleep(info, i) == false)
+		if (p_sleep(info, philo) == false)
 			return (-1);
 	}
 	return (0);
@@ -28,24 +28,23 @@ static int	working(t_info *info, int i)
 
 void	*work(void *param)
 {
-	t_info	*info;
-	int		i;
+	t_philo	*philo;
 
-	info = (t_info *)param;
-	i = info->nb_threads;
-	if (info->nb_times_to_eat > 0)
+	philo = (t_philo *)param;
+	if (philo->info->nb_times_to_eat > 0)
 	{
-		while (info->philos[i].nb_times_ate < info->nb_times_to_eat)
+		while (philo->nb_times_ate < philo->info->nb_times_to_eat \
+		&& philo->info->dead == false)
 		{
-			if (working(info, i) == -1)
+			if (working(philo->info, philo) == -1)
 				break ;
 		}
 	}
 	else
 	{
-		while (info->dead == false)
+		while (philo->info->dead == false)
 		{
-			if (working(info, i) == -1)
+			if (working(philo->info, philo) == -1)
 				break ;
 		}
 	}
@@ -54,25 +53,25 @@ void	*work(void *param)
 
 void	*payday(void *param)
 {
-	t_info	*info;
+	t_philo	*philos;
 	int		i;
 
 	i = 0;
-	info = (t_info *)param;
-	if (info->nb_times_to_eat > 0)
+	philos = (t_philo *)param;
+	if (philos[i]->info->nb_times_to_eat > 0)
 	{
-		while (info->philos[i].nb_times_ate < info->nb_times_to_eat \
-		&& info->dead == false)
+		while (philos[i].nb_times_ate < philos[i].info->nb_times_to_eat \
+		&& philos[i].info->dead == false)
 		{
-			if (has_died(info, &i) == true)
+			if (has_died(philos, &i) == true)
 				break ;
 		}
 	}
 	else
 	{
-		while (info->dead == false)
+		while (philos[i].info->dead == false)
 		{
-			if (has_died(info, &i) == true)
+			if (has_died(philos, &i) == true)
 				break ;
 		}
 	}
