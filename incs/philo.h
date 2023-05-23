@@ -28,12 +28,15 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_times_to_eat;
+	int				philo_done;
 	long long		t0;
 	bool			dead;
 	pthread_t		bossman;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg;
 	pthread_mutex_t	death;
+	pthread_mutex_t	done;
+	pthread_mutex_t	eat;
 }	t_info;
 
 typedef struct s_philo
@@ -46,8 +49,6 @@ typedef struct s_philo
 	pthread_t	thread;
 	t_info		*info;
 }	t_philo;
-
-
 
 # define RED "\033[1;31m"
 # define GREEN "\033[1;32m"
@@ -80,7 +81,7 @@ int			p_strlen(char *str);
 int			p_print(t_info *info, t_philo *philo, char *str, char *color);
 
 /* init */
-int			create_philos(t_info *info, t_philo *philos);
+t_philo		*create_philos(t_info *info);
 int			create_threads(t_info *info, t_philo *philos);
 int			create_forks(t_info *info);
 
@@ -92,18 +93,18 @@ void		do_task(long long time);
 /* routine */
 void		*work(void *param);
 void		*payday(void *param);
-int			one_philo(t_info *info, t_philo *philos);
+void		*one_philo(void *param);
 
 /* action */
 bool		p_eat(t_info *info, t_philo *philo);
 bool		p_sleep(t_info *info, t_philo *philo);
 bool		p_think(t_info *info, t_philo *philo);
-bool		has_died(t_philo *philo, int *i);
+bool		is_end(t_philo *philos, t_info *info, int *i);
 
 /* exit */
-int			join_threads(t_info *info);
+int			join_threads(t_info *info, t_philo *philos);
 void		clean_forks(t_info *info, int n);
 void		unlock_forks(t_info *info);
-void		free_info(t_info *info, t_philo *philos);
+// void		free_info(t_info *info, t_philo *philos);
 
 #endif

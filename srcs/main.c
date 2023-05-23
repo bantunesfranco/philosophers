@@ -13,13 +13,13 @@
 #include <philo.h>
 #include <limits.h>
 
-void	free_info(t_info *info, t_philo *philos)
+static void	free_info(t_info *info, t_philo *philos)
 {
 	free(philos);
 	free(info->forks);
 }
 
-int	init_info(t_info *info, char **argv)
+static int	init_info(t_info *info, char **argv)
 {
 	info->nb_philos = p_atoi(argv[1]);
 	info->time_to_die = p_atoi(argv[2]);
@@ -40,6 +40,26 @@ int	init_info(t_info *info, char **argv)
 	if (info->nb_times_to_eat < 0)
 		return (err_msg(ARG5));
 	info->dead = false;
+	info->philo_done = 0;
+	return (0);
+}
+
+static int	run_philos(t_philo *philos, t_info *info)
+{
+
+
+	if (info->nb_philos == 1)
+	{
+		info->t0 = get_time();
+		if (pthread_create(&philos[0].thread, NULL, &one_philo, &philos[0]))
+			return (err_msg("Create thread\n"));
+	}
+	else
+	{
+		if (create_threads(info, philos) == -1)
+			return (1);
+		clean_forks(info, info->nb_philos);
+	}
 	return (0);
 }
 
@@ -57,18 +77,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (create_forks(&info) == -1)
 		return (1);
-	if (info.nb_philos == 1)
-	{
-		if (one_philo(&info, &philos) == -1)
-			return (1);
-	}
-	else
-	{
-		if (create_threads(&info, &philos) == -1)
-			return (1);
-		// unlock_forks(&info);
-		clean_forks(&info, info.nb_philos);
-	}
-	free_info(&info, &philos);
+	run_philos(philos, &info);
+	free_info(&info, philos);
 	return (0);
 }

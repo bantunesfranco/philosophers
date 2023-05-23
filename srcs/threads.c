@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:50:11 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/02 09:35:40 by bruno         ########   odam.nl         */
+/*   Updated: 2023/05/23 11:20:36 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	create_threads(t_info *info, t_philo *philos)
 		return (-1);
 	while (i < info->nb_philos)
 	{
-		if (pthread_create(philos[i].thread, NULL, &work, &philos[i]))
+		if (pthread_create(&philos[i].thread, NULL, &work, &philos[i]))
 			return (err_msg("Create thread\n"));
 		i++;
 	}
@@ -36,7 +36,7 @@ int	join_threads(t_info *info, t_philo *philos)
 	int	i;
 
 	i = 0;
-	while (i < info->nb_philos)
+	while (i < info->nb_philos)	
 	{
 		if (pthread_join(philos[i].thread, NULL))
 			return (err_msg("Join thread\n"));
