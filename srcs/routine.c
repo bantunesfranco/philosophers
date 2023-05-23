@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/23 12:12:29 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/05/23 13:28:46 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	working(t_info *info, t_philo *philo)
 {
 	if (p_eat(info, philo) == false)
 		return (-1);
-	if (philo->nb_times_ate == info->nb_times_to_eat)
+	if (info->nb_times_to_eat != 0 \
+	&& philo->nb_times_ate == info->nb_times_to_eat)
 	{
 		pthread_mutex_lock(&info->done);
 		info->philo_done++;
