@@ -105,6 +105,6 @@ bool		is_end(t_philo *philos, t_info *info, int *i);
 int			join_threads(t_info *info, t_philo *philos);
 void		clean_forks(t_info *info, int n);
 void		unlock_forks(t_info *info);
-// void		free_info(t_info *info, t_philo *philos);
+void		free_info(t_info *info, t_philo *philos);
 
 #endif

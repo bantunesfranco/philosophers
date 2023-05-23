@@ -13,8 +13,10 @@
 #include <philo.h>
 #include <limits.h>
 
-static void	free_info(t_info *info, t_philo *philos)
+void	free_info(t_info *info, t_philo *philos)
 {
+	// unlock_forks(info);
+	clean_forks(info, info->nb_philos);
 	free(philos);
 	free(info->forks);
 }
@@ -59,7 +61,6 @@ static int	run_philos(t_philo *philos, t_info *info)
 	{
 		if (create_threads(info, philos) == -1)
 			return (1);
-		clean_forks(info, info->nb_philos);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:52:05 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/23 11:39:58 by codespace     ########   odam.nl         */
+/*   Updated: 2023/05/23 12:18:54 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	unlock_forks(t_info *info)
 	i = 0;
 	pthread_mutex_unlock(&info->msg);
 	pthread_mutex_unlock(&info->death);
+	pthread_mutex_unlock(&info->done);
+	pthread_mutex_unlock(&info->eat);
 	while (i < info->nb_philos)
 	{
 		pthread_mutex_unlock(&info->forks[i]);
