@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/23 12:09:59 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/05/23 11:43:26 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ bool	p_eat(t_info *info, t_philo *philo)
 
 bool	p_sleep(t_info *info, t_philo *philo)
 {
-	pthread_mutex_lock(&info->death);
 	if (p_print(info, philo, SLEEP, GREEN) == -1)
 		return (pthread_mutex_lock(&info->death), false);
+	pthread_mutex_lock(&info->death);
 	do_task(info->time_to_sleep);
 	pthread_mutex_lock(&info->death);
 	return (true);
@@ -61,12 +61,12 @@ bool	is_end(t_philo *philos, t_info *info, int *i)
 		pthread_mutex_lock(&info->eat);
 		if (info->philo_done == info->nb_philos)
 			return (true);
+		pthread_mutex_unlock(&info->eat);
 		if (p_print(info, &philos[*i], DEAD, RED) == -1)
 			return (pthread_mutex_unlock(&info->eat), false);
 		pthread_mutex_lock(&info->death);
 		info->dead = true;
 		pthread_mutex_unlock(&info->death);
-		pthread_mutex_unlock(&info->eat);
 		return (true);
 	}
 	i++;

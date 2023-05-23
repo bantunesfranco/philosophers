@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 	if (init_info(&info, argv) == -1)
 		return (1);
 	philos = create_philos(&info);
-	if (philos == NULL)
+	if (!philos)
 		return (1);
 	if (create_forks(&info) == -1)
 		return (1);
