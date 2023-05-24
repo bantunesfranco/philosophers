@@ -36,7 +36,6 @@ typedef struct s_info
 	pthread_mutex_t	msg;
 	pthread_mutex_t	death;
 	pthread_mutex_t	done;
-	pthread_mutex_t	eat;
 }	t_info;
 
 typedef struct s_philo
@@ -47,6 +46,7 @@ typedef struct s_philo
 	int			fr;
 	long long	time_to_die;
 	pthread_t	thread;
+	pthread_mutex_t	eat;
 	t_info		*info;
 }	t_philo;
 
@@ -83,7 +83,7 @@ int			p_print(t_info *info, t_philo *philo, char *str, char *color);
 /* init */
 t_philo		*create_philos(t_info *info);
 int			create_threads(t_info *info, t_philo *philos);
-int			create_forks(t_info *info);
+int			create_forks(t_info *info, t_philo *philos);
 
 /* time */
 long long	get_time(void);
@@ -103,7 +103,7 @@ bool		is_end(t_philo *philos, t_info *info, int *i);
 
 /* exit */
 int			join_threads(t_info *info, t_philo *philos);
-void		clean_forks(t_info *info, int n);
+void		clean_forks(t_philo *philos, t_info *info, int n);
 void		unlock_forks(t_info *info);
 void		free_info(t_info *info, t_philo *philos);
 

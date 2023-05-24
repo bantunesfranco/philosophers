@@ -6,13 +6,13 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:52:05 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/23 12:18:54 by codespace     ########   odam.nl         */
+/*   Updated: 2023/05/24 11:47:59 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	create_forks(t_info *info)
+int	create_forks(t_info *info, t_philo *philos)
 {
 	int	i;
 
@@ -23,21 +23,21 @@ int	create_forks(t_info *info)
 		return (err_msg("Create mutex"));
 	if (pthread_mutex_init(&info->done, NULL))
 		return (err_msg("Create mutex"));
-	if (pthread_mutex_init(&info->eat, NULL))
-		return (err_msg("Create mutex"));
 	info->forks = malloc(info->nb_philos * sizeof(pthread_mutex_t));
 	if (!info->forks)
 		return (err_msg("Malloc\n"));
 	while (i < info->nb_philos)
 	{
-		if (pthread_mutex_init(&info->forks[i], NULL))
-			return (clean_forks(info, i), err_msg("Create mutex"));
+		if (pthread_mutex_init(&((info->forks)[i]), NULL))
+			return (clean_forks(philos, info, i), err_msg("Create mutex"));
+		if (pthread_mutex_init(&philos[i].eat, NULL))
+			return (clean_forks(philos, info, i), err_msg("Create mutex"));
 		i++;
 	}
 	return (0);
 }
 
-void	clean_forks(t_info *info, int n)
+void	clean_forks(t_philo *philos, t_info *info, int n)
 {
 	int	i;
 
@@ -45,26 +45,26 @@ void	clean_forks(t_info *info, int n)
 	pthread_mutex_destroy(&info->msg);
 	pthread_mutex_destroy(&info->death);
 	pthread_mutex_destroy(&info->done);
-	pthread_mutex_destroy(&info->eat);
 	while (i < n)
 	{
 		pthread_mutex_destroy(&info->forks[i]);
+		pthread_mutex_destroy(&philos[i].eat);
 		i++;
 	}
 }
 
-void	unlock_forks(t_info *info)
-{
-	int	i;
+// void	unlock_forks(t_info *info)
+// {
+// 	int	i;
 
-	i = 0;
-	pthread_mutex_unlock(&info->msg);
-	pthread_mutex_unlock(&info->death);
-	pthread_mutex_unlock(&info->done);
-	pthread_mutex_unlock(&info->eat);
-	while (i < info->nb_philos)
-	{
-		pthread_mutex_unlock(&info->forks[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	pthread_mutex_unlock(&info->msg);
+// 	pthread_mutex_unlock(&info->death);
+// 	pthread_mutex_unlock(&info->done);
+// 	while (i < info->nb_philos)
+// 	{
+// 		pthread_mutex_unlock(&info->forks[i]);
+// 		pthread_mutex_unlock(&info->eat);
+// 		i++;
+// 	}
+// }

@@ -16,7 +16,7 @@
 void	free_info(t_info *info, t_philo *philos)
 {
 	// unlock_forks(info);
-	clean_forks(info, info->nb_philos);
+	clean_forks(philos, info, info->nb_philos);
 	free(philos);
 	free(info->forks);
 }
@@ -77,7 +77,7 @@ int	main(int argc, char **argv)
 	philos = create_philos(&info);
 	if (!philos)
 		return (1);
-	if (create_forks(&info) == -1)
+	if (create_forks(&info, philos) == -1)
 		return (1);
 	run_philos(philos, &info);
 	free_info(&info, philos);

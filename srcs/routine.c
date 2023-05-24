@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/23 13:43:18 by codespace     ########   odam.nl         */
+/*   Updated: 2023/05/24 11:49:14 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ static int	working(t_info *info, t_philo *philo)
 		pthread_mutex_unlock(&info->done);
 		return (-1);
 	}
-	if (philo->nb_times_ate != info->nb_times_to_eat)
-	{
-		if (p_sleep(info, philo) == false)
-			return (-1);
-		if (p_think(info, philo) == false)
-			return (-1);
-	}
+	if (p_sleep(info, philo) == false)
+		return (-1);
+	if (p_think(info, philo) == false)
+		return (-1);
 	return (0);
 }
 
