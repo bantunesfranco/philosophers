@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/25 17:51:13 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/05/25 20:33:35 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static int	working(t_info *info, t_philo *philo)
 {
+	if (philo->last_eat != 0 && is_dead(philo, info) == true)
+		return (-1);
 	if (p_eat(info, philo) == false)
 		return (-1);
-	if (is_dead(philo, info) == true)
-		return (-1);
 	if (philo->nb_times_ate == info->nb_times_to_eat)
-		// return (p_print(info, philo, "is done eating", MAGENTA), -1);
+		return (p_print(info, philo, "is done eating", MAGENTA), -1);
+		// return (-1);
+	if (is_dead(philo, info) == true)
 		return (-1);
 	if (p_sleep(info, philo) == false)
 		return (-1);

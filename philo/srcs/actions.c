@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/25 17:53:42 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/05/25 20:37:24 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	is_dead(t_philo *philo, t_info *info)
 	int	dt;
 
 	dt = delta_time(philo->last_eat);
-	if (dt > info->time_to_die)
+	if (dt >= info->time_to_die)
 	{
 		p_print(info, philo, DEAD, RED);
 		pthread_mutex_lock(&info->death);
