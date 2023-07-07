@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 10:47:15 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/25 17:16:08 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/07 09:14:47 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_philo	*create_philos(t_info *info)
 			j = i + 1;
 		philos[i].id = i + 1;
 		philos[i].nb_times_ate = 0;
-		philos[i].last_eat = 0;
 		philos[i].fl = i;
 		philos[i].fr = j;
 		philos[i].info = info;

@@ -75,7 +75,7 @@ int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 	dt = delta_time(info->t0);
 	if (dt == -1)
 		return (-1);
-	printf("%s%lld\t%d %s%s\n", color, dt, philo->id, str, END);
+	printf("%s%lld\t%d %s %s\n", color, dt, philo->id, str, END);
 	pthread_mutex_unlock(&info->msg);
 	pthread_mutex_unlock(&info->death);
 	return (0);

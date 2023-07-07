@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/25 20:33:35 by codespace     ########   odam.nl         */
+/*   Updated: 2023/05/26 08:50:51 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	working(t_info *info, t_philo *philo)
 {
-	if (philo->last_eat != 0 && is_dead(philo, info) == true)
+	if (is_dead(philo, info) == true)
 		return (-1);
 	if (p_eat(info, philo) == false)
 		return (-1);

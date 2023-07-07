@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:50:11 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/25 17:16:31 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/07 09:14:32 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	create_threads(t_info *info, t_philo *philos)
 		return (-1);
 	while (i < info->nb_philos)
 	{
+		philos[i].last_eat = info->t0;
 		if (pthread_create(&philos[i].thread, NULL, &work, &philos[i]))
 			return (err_msg("Create thread\n"));
 		i++;
