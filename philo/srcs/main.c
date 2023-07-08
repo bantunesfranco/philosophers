@@ -15,7 +15,6 @@
 
 void	free_info(t_info *info, t_philo *philos)
 {
-	// unlock_forks(info);
 	clean_forks(philos, info, info->nb_philos);
 	free(philos);
 	free(info->forks);
@@ -31,13 +30,13 @@ static int	init_info(t_info *info, char **argv)
 		info->nb_times_to_eat = p_atoi(argv[5]);
 	else
 		info->nb_times_to_eat = 0;
-	if (info->nb_philos < 0)
+	if (info->nb_philos <= 0)
 		return (err_msg(ARG1));
-	if (info->time_to_die < 0)
+	if (info->time_to_die <= 0)
 		return (err_msg(ARG2));
-	if (info->time_to_eat < 0)
+	if (info->time_to_eat <= 0)
 		return (err_msg(ARG3));
-	if (info->time_to_sleep < 0)
+	if (info->time_to_sleep <= 0)
 		return (err_msg(ARG4));
 	if (info->nb_times_to_eat < 0)
 		return (err_msg(ARG5));
@@ -46,21 +45,17 @@ static int	init_info(t_info *info, char **argv)
 	return (0);
 }
 
-static int	run_philos(t_philo *philos, t_info *info)
+static void	run_philos(t_philo *philos, t_info *info)
 {
 	if (info->nb_philos == 1)
 	{
 		info->t0 = get_time();
 		if (pthread_create(&philos[0].thread, NULL, &one_philo, &philos[0]))
-			return (err_msg("Create thread\n"));
+			err_msg("Create thread\n");
 		return (pthread_join(philos[0].thread, NULL));
 	}
 	else
-	{
-		if (create_threads(info, philos) == -1)
-			return (1);
-	}
-	return (0);
+		create_threads(info, philos);
 }
 
 int	main(int argc, char **argv)

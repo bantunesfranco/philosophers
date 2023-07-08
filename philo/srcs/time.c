@@ -33,7 +33,18 @@ long long	delta_time(long long time)
 	return (now - time);
 }
 
+void	ft_usleep(long long time)
+{
+	long long	start;
+
+	start = get_time();
+	if (start == -1)
+		return ;
+	while (delta_time(start) < time)
+		usleep(100);
+}
+
 void	do_task(long long time)
 {
-	usleep(time * 1000);
+	ft_usleep(time * 1000);
 }
