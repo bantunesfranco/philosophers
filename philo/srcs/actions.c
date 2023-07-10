@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/10 17:07:40 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 20:24:56 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ bool	p_eat(t_info *info, t_philo *philo)
 	if (p_print(info, philo, FORK, GREEN) == -1 \
 	|| p_print(info, philo, FORK, GREEN) == -1 \
 	|| p_print(info, philo, EAT, BLUE) == -1)
-		return (pthread_mutex_unlock(&info->forks[philo->fl]), \
-		pthread_mutex_unlock(&info->forks[philo->fr]), \
+		return (pthread_mutex_unlock(&info->forks[philo->fr]), \
+		pthread_mutex_unlock(&info->forks[philo->fl]), \
 		pthread_mutex_unlock(&philo->eat), false);
 	philo->nb_times_ate++;
 	philo->last_eat = get_time();
 	ft_usleep(info->time_to_eat);
-	pthread_mutex_unlock(&info->forks[philo->fl]);
 	pthread_mutex_unlock(&info->forks[philo->fr]);
+	pthread_mutex_unlock(&info->forks[philo->fl]);
 	pthread_mutex_unlock(&philo->eat);
 	return (true);
 }
@@ -52,6 +52,12 @@ bool	is_dead(t_philo *philo, t_info *info)
 	int			dt;
 
 	pthread_mutex_lock(&philo->eat);
+	if (philo->nb_times_ate == info->nb_meals)
+	{
+		pthread_mutex_unlock(&philo->eat);
+		info->philo_done++;
+		return (false);
+	}
 	dt = delta_time(philo->last_eat);
 	pthread_mutex_unlock(&philo->eat);
 	if (dt >= info->time_to_die)

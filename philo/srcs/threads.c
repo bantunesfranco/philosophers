@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:50:11 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/10 17:01:37 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 20:08:54 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	create_threads(t_info *info, t_philo *philos)
 		return (-1);
 	while (i < info->nb_philos)
 	{
-		philos[i].last_eat = info->t0;
+		philos[i].last_eat = get_time();
 		if (pthread_create(&philos[i].thread, NULL, &work, &philos[i]))
 			return (kill_threads(philos, i), err_msg("Create thread\n"));
-		if (i % 2 == 1)
-			usleep(10);
+		if (i % 2 == 0)
+			usleep(100);
 		i++;
 	}
-	if (pthread_create(&philos[i].thread, NULL, &payday, philos))
+	if (pthread_create(&info->bossman, NULL, &payday, philos))
 		return (kill_threads(philos, i), err_msg("Create thread\n"));
 	return (join_threads(info, philos));
 }
@@ -45,6 +45,8 @@ int	join_threads(t_info *info, t_philo *philos)
 			return (err_msg("Join thread\n"));
 		i++;
 	}
+	if (pthread_join(info->bossman, NULL))
+		return (err_msg("Join thread\n"));
 	return (0);
 }
 
