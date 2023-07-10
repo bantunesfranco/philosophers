@@ -7,12 +7,17 @@ CYAN=\033[1;36m
 END=\033[0m
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread -Ofast #-g  -fsanitize=thread
 NAME = philo
 
 DIR_S = srcs
 DIR_I = incs
 DIR_O = obj
+
+ifndef DEBUG
+	CFLAGS = -Wall -Werror -Wextra -pthread -Ofast
+else
+	CFLAGS = -Wall -Werror -Wextra -pthread -Ofast -g -fsanitize=thread
+endif
 
 INCS = -I $(DIR_I)
 
@@ -23,7 +28,6 @@ OBJS =  ${SRCS:%.c=${DIR_O}/%.o}
 all: ${NAME}
 
 ${NAME}: ${OBJS} ${DIR_I}/${NAME}.h
-
 	@echo "${BLUE}Compiling ${NAME}${END}"
 	@${CC} ${CFLAGS} ${OBJS} -o ${NAME} 
 	@echo "${GREEN}Done!${END}"
@@ -47,8 +51,7 @@ fclean: clean
 
 re: fclean all
 
-git:
-	git commit
-	git push
+debug: fclean
+	@$(MAKE) DEBUG=1 all
 
-.PHONY: all clean fclean re bonus git
+.PHONY: all clean fclean re bonus debug

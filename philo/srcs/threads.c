@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:50:11 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/08 10:43:55 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 15:47:40 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ int	create_threads(t_info *info, t_philo *philos)
 		philos[i].last_eat = info->t0;
 		if (pthread_create(&philos[i].thread, NULL, &work, &philos[i]))
 			return (kill_threads(philos, i), err_msg("Create thread\n"));
+		if (i % 2 == 1)
+			usleep(10);
 		i++;
 	}
+	if (pthread_create(&philos[i].thread, NULL, &work, &philos[i]))
+		return (kill_threads(philos, i), err_msg("Create thread\n"));
 	return (join_threads(info, philos));
 }
 
@@ -51,7 +55,7 @@ int	kill_threads(t_philo *philos, int n)
 	i = 0;
 	while (i < n)
 	{
-		pthread_detach(philos[i].thread)
+		pthread_detach(philos[i].thread);
 		i++;
 	}
 	return (0);

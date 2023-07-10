@@ -86,7 +86,7 @@ int			create_forks(t_info *info, t_philo *philos);
 /* time */
 long long	get_time(void);
 long long	delta_time(long long time);
-void		do_task(long long time);
+void		ft_usleep(long long time);
 
 /* routine */
 void		*work(void *param);

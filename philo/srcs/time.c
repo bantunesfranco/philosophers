@@ -43,8 +43,3 @@ void	ft_usleep(long long time)
 	while (delta_time(start) < time)
 		usleep(100);
 }
-
-void	do_task(long long time)
-{
-	ft_usleep(time * 1000);
-}

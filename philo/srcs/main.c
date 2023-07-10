@@ -51,8 +51,8 @@ static void	run_philos(t_philo *philos, t_info *info)
 	{
 		info->t0 = get_time();
 		if (pthread_create(&philos[0].thread, NULL, &one_philo, &philos[0]))
-			err_msg("Create thread\n");
-		return (pthread_join(philos[0].thread, NULL));
+			return ((void)err_msg("Create thread\n"));
+		return ((void)pthread_join(philos[0].thread, NULL));
 	}
 	else
 		create_threads(info, philos);

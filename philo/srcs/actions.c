@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/07 09:33:23 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 14:55:27 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	p_eat(t_info *info, t_philo *philo)
 		pthread_mutex_unlock(&info->forks[philo->fr]), false);
 	philo->nb_times_ate++;
 	philo->last_eat = get_time();
-	do_task(info->time_to_eat);
+	ft_usleep(info->time_to_eat);
 	pthread_mutex_unlock(&info->forks[philo->fl]);
 	pthread_mutex_unlock(&info->forks[philo->fr]);
 	return (true);
@@ -33,7 +33,7 @@ bool	p_sleep(t_info *info, t_philo *philo)
 {
 	if (p_print(info, philo, SLEEP, CYAN) == -1)
 		return (false);
-	do_task(info->time_to_sleep);
+	ft_usleep(info->time_to_sleep);
 	return (true);
 }
 
@@ -46,7 +46,8 @@ bool	p_think(t_info *info, t_philo *philo)
 
 bool	is_dead(t_philo *philo, t_info *info)
 {
-	int	dt;
+	int			dt;
+
 	dt = delta_time(philo->last_eat);
 	if (dt >= info->time_to_die)
 	{

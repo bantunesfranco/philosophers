@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 10:47:15 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/07 09:14:47 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 14:55:41 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	*one_philo(void *param)
 	philos = (t_philo *)param;
 	if (p_print(philos[0].info, &philos[0], FORK, GREEN) == -1)
 		return (NULL);
-	do_task(philos[0].info->time_to_die);
+	ft_usleep(philos[0].info->time_to_die);
 	if (p_print(philos[0].info, &philos[0], DEAD, RED) == -1)
 		return (NULL);
 	return (NULL);
