@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:50:11 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/10 15:47:40 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 17:01:37 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	create_threads(t_info *info, t_philo *philos)
 			usleep(10);
 		i++;
 	}
-	if (pthread_create(&philos[i].thread, NULL, &work, &philos[i]))
+	if (pthread_create(&philos[i].thread, NULL, &payday, philos))
 		return (kill_threads(philos, i), err_msg("Create thread\n"));
 	return (join_threads(info, philos));
 }

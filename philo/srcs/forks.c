@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:52:05 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/05/25 17:15:15 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 17:06:45 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	create_forks(t_info *info, t_philo *philos)
 	while (i < info->nb_philos)
 	{
 		if (pthread_mutex_init(&info->forks[i], NULL))
+			return (clean_forks(philos, info, i), err_msg("Create mutex"));
+		if (pthread_mutex_init(&philos[i].eat, NULL))
 			return (clean_forks(philos, info, i), err_msg("Create mutex"));
 		i++;
 	}

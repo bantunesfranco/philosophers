@@ -45,6 +45,7 @@ typedef struct s_philo
 	int				fr;
 	long long		last_eat;
 	pthread_t		thread;
+	pthread_mutex_t	eat;
 	t_info			*info;
 }	t_philo;
 
