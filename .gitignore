@@ -1,5 +1,6 @@
 philo/philo
 philo/obj
+*tester*
 
 # Prerequisites
 *.d

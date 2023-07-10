@@ -27,9 +27,9 @@ static int	init_info(t_info *info, char **argv)
 	info->time_to_eat = p_atoi(argv[3]);
 	info->time_to_sleep = p_atoi(argv[4]);
 	if (argv[5])
-		info->nb_times_to_eat = p_atoi(argv[5]);
+		info->nb_meals = p_atoi(argv[5]);
 	else
-		info->nb_times_to_eat = 0;
+		info->nb_meals = 0;
 	if (info->nb_philos <= 0)
 		return (err_msg(ARG1));
 	if (info->time_to_die <= 0)
@@ -38,7 +38,7 @@ static int	init_info(t_info *info, char **argv)
 		return (err_msg(ARG3));
 	if (info->time_to_sleep <= 0)
 		return (err_msg(ARG4));
-	if (info->nb_times_to_eat < 0)
+	if (info->nb_meals < 0)
 		return (err_msg(ARG5));
 	info->dead = false;
 	info->philo_done = 0;

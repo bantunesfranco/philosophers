@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/10 17:13:35 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/10 18:06:36 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,14 @@ void	*work(void *param)
 	info = philo->info;
 	while (1)
 	{
-		if (info->nb_times_to_eat > 0 \
-		&& philo->nb_times_ate == info->nb_times_to_eat)
+		if (info->nb_meals > 0 && philo->nb_times_ate == info->nb_meals)
 		{
 			p_print(philo->info, philo, "is done eating", MAGENTA);
 			break ;
 		}
 		if (p_eat(info, philo) == false)
 			break ;
-		if (info->nb_times_to_eat > 0 \
-		&& philo->nb_times_ate == info->nb_times_to_eat)
+		if (info->nb_meals > 0 && philo->nb_times_ate == info->nb_meals)
 		{
 			p_print(philo->info, philo, "is done eating", MAGENTA);
 			break ;
