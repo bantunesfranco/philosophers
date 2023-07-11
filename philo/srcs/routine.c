@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/10 20:26:04 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/11 10:11:47 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static bool	end_sim(t_philo *philo, t_info *info)
 	if (info->nb_meals > 0 && philo->nb_times_ate == info->nb_meals)
 	{
 		p_print(philo->info, philo, "is done eating", MAGENTA);
+		pthread_mutex_unlock(&philo->eat);
 		return (true);
 	}
 	pthread_mutex_unlock(&philo->eat);
@@ -41,15 +42,15 @@ void	*work(void *param)
 	while (1)
 	{
 		if (end_sim(philo, info) == true)
-			break ;
+			return (NULL);
 		if (p_eat(info, philo) == false)
-			break ;
+			return (NULL);
 		if (end_sim(philo, info) == true)
-			break ;
+			return (NULL);
 		if (p_sleep(info, philo) == false)
-			break ;
+			return (NULL);
 		if (p_think(info, philo) == false)
-			break ;
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -68,7 +69,7 @@ void	*payday(void *param)
 	{
 		if (info->philo_done == info->nb_philos)
 			return (NULL);
-		if (delta_time(time) >= info->time_to_die)
+		if (delta_time(time) >= info->time_to_die/2)
 		{
 			i = 0;
 			while (i < info->nb_philos)

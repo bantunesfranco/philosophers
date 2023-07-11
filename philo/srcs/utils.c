@@ -64,19 +64,18 @@ int	p_print(t_info *info, t_philo *philo, char *str, char *color)
 {
 	long long	dt;
 
-	pthread_mutex_lock(&info->msg);
 	pthread_mutex_lock(&info->death);
 	if (info->dead == true)
 	{
-		pthread_mutex_unlock(&info->msg);
 		pthread_mutex_unlock(&info->death);
 		return (-1);
 	}
+	pthread_mutex_unlock(&info->death);
 	dt = delta_time(info->t0);
 	if (dt == -1)
 		return (-1);
+	pthread_mutex_lock(&info->msg);
 	printf("%s%lld\t%d %s %s\n", color, dt, philo->id, str, END);
 	pthread_mutex_unlock(&info->msg);
-	pthread_mutex_unlock(&info->death);
 	return (0);
 }

@@ -14,7 +14,8 @@ DIR_I = incs
 DIR_O = obj
 
 ifndef DEBUG
-	CFLAGS = -Wall -Werror -Wextra -pthread -Ofast
+	CFLAGS = -Wall -Werror -Wextra -pthread 
+#-Ofast
 else
 	CFLAGS = -Wall -Werror -Wextra -pthread -Ofast -g -fsanitize=thread
 endif
