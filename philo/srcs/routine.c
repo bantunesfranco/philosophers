@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/11 10:11:47 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/11 14:35:51 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	*payday(void *param)
 	{
 		if (info->philo_done == info->nb_philos)
 			return (NULL);
-		if (delta_time(time) >= info->time_to_die/2)
+		if (delta_time(time) >= info->time_to_die)
 		{
 			i = 0;
 			while (i < info->nb_philos)
