@@ -98,8 +98,8 @@ void		*one_philo(void *param);
 bool		p_eat(t_info *info, t_philo *philo);
 bool		p_sleep(t_info *info, t_philo *philo);
 bool		p_think(t_info *info, t_philo *philo);
-bool		is_end(t_philo *philos, t_info *info, int *i);
 bool		is_dead(t_philo *philo, t_info *info);
+bool		is_end(t_philo *philo, t_info *info);
 
 /* exit */
 int			join_threads(t_info *info, t_philo *philos);
