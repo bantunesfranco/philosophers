@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/10 20:24:56 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/12 15:26:29 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ bool	is_dead(t_philo *philo, t_info *info)
 	int			dt;
 
 	pthread_mutex_lock(&philo->eat);
-	if (philo->nb_times_ate == info->nb_meals)
+	if (philo->nb_times_ate == info->nb_meals \
+	&& info->philo_done < info->nb_philos)
 	{
-		pthread_mutex_unlock(&philo->eat);
 		info->philo_done++;
+		pthread_mutex_unlock(&philo->eat);
 		return (false);
 	}
 	dt = delta_time(philo->last_eat);

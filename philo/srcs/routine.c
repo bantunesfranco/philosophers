@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/11 14:35:51 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/12 17:48:25 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	*work(void *param)
 	info = philo->info;
 	while (1)
 	{
-		if (end_sim(philo, info) == true)
-			return (NULL);
 		if (p_eat(info, philo) == false)
 			return (NULL);
 		if (end_sim(philo, info) == true)
@@ -67,13 +65,13 @@ void	*payday(void *param)
 	time = get_time();
 	while (1)
 	{
-		if (info->philo_done == info->nb_philos)
-			return (NULL);
 		if (delta_time(time) >= info->time_to_die)
 		{
 			i = 0;
 			while (i < info->nb_philos)
 			{
+				if (info->philo_done == info->nb_philos)
+					return (NULL);
 				if (is_dead(&philos[i], info) == true)
 					return (NULL);
 				i++;
