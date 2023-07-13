@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/13 17:12:15 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/13 17:20:31 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/13 17:25:15 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ bool	pickup_forks(t_info *info, t_philo *philo)
 
 bool	p_eat(t_info *info, t_philo *philo)
 {
-
 	if (pickup_forks(info, philo) == false)
 		return (false);
 	if (p_print(info, philo, EAT, BLUE) == -1)
