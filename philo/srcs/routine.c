@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/12 18:35:12 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/13 07:55:30 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	*payday(void *param)
 	time = get_time();
 	while (1)
 	{
-		if (delta_time(time) >= info->time_to_die / 4)
+		if (delta_time(time) >= info->time_to_die)
 		{
 			i = 0;
 			while (i < info->nb_philos)
