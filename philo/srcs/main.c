@@ -45,19 +45,6 @@ static int	init_info(t_info *info, char **argv)
 	return (0);
 }
 
-static void	run_philos(t_philo *philos, t_info *info)
-{
-	if (info->nb_philos == 1)
-	{
-		info->t0 = get_time();
-		if (pthread_create(&philos[0].thread, NULL, &one_philo, &philos[0]))
-			return ((void)err_msg("Create thread\n"));
-		return ((void)pthread_join(philos[0].thread, NULL));
-	}
-	else
-		create_threads(info, philos);
-}
-
 int	main(int argc, char **argv)
 {
 	t_info	info;
@@ -72,7 +59,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (create_forks(&info, philos) == -1)
 		return (1);
-	run_philos(philos, &info);
+	create_threads(&info, philos);
 	free_info(&info, philos);
 	return (0);
 }
