@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/13 10:28:50 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/13 17:05:45 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ static bool	end_sim(t_philo *philo, t_info *info)
 		return (true);
 	}
 	pthread_mutex_unlock(&philo->eat);
-	pthread_mutex_lock(&info->death);
-	if (info->dead == true)
-	{
-		pthread_mutex_unlock(&info->death);
-		return (true);
-	}
-	pthread_mutex_unlock(&info->death);
 	return (false);
 }
 
@@ -64,14 +57,12 @@ void	*payday(void *param)
 	philos = (t_philo *)param;
 	info = philos[0].info;
 	time = get_time();
-	while (1)
+	while (info->philo_done == info->nb_philos)
 	{
-		if (info->philo_done == info->nb_philos)
-			return (NULL);
 		if (delta_time(time) >= info->time_to_die)
 		{
 			i = 0;
-			while (i < info->nb_philos)
+			while (i < info->nb_philos && info->philo_done == info->nb_philos)
 			{
 				if (is_end(&philos[i], info) == true)
 					return (NULL);

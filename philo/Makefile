@@ -21,7 +21,7 @@ endif
 
 INCS = -I $(DIR_I)
 
-SRCS = actions.c forks.c main.c philos.c routine.c threads.c time.c utils.c
+SRCS = eat.c actions.c forks.c main.c philos.c routine.c threads.c time.c utils.c
 
 OBJS =  ${SRCS:%.c=${DIR_O}/%.o}
 

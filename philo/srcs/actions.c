@@ -6,35 +6,11 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/13 10:28:37 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/13 17:22:51 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
-
-bool	p_eat(t_info *info, t_philo *philo)
-{
-	pthread_mutex_lock(&info->forks[philo->fl]);
-	if (is_dead(philo, info) == true)
-		return (pthread_mutex_unlock(&info->forks[philo->fl]), false);
-	pthread_mutex_lock(&info->forks[philo->fr]);
-	if (is_dead(philo, info) == true)
-		return (pthread_mutex_unlock(&info->forks[philo->fr]), \
-		pthread_mutex_unlock(&info->forks[philo->fl]), false);
-	if (p_print(info, philo, FORK, GREEN) == -1 \
-	|| p_print(info, philo, FORK, GREEN) == -1 \
-	|| p_print(info, philo, EAT, BLUE) == -1)
-		return (pthread_mutex_unlock(&info->forks[philo->fr]), \
-		pthread_mutex_unlock(&info->forks[philo->fl]), false);
-	pthread_mutex_lock(&philo->eat);
-	philo->nb_times_ate++;
-	philo->last_eat = get_time();
-	pthread_mutex_unlock(&philo->eat);
-	ft_usleep(info->time_to_eat);
-	pthread_mutex_unlock(&info->forks[philo->fr]);
-	pthread_mutex_unlock(&info->forks[philo->fl]);
-	return (true);
-}
 
 bool	p_sleep(t_info *info, t_philo *philo)
 {
