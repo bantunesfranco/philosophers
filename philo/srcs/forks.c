@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:52:05 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/10 17:06:45 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/17 08:37:12 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,3 @@ void	clean_forks(t_philo *philos, t_info *info, int n)
 		i++;
 	}
 }
-
-// void	unlock_forks(t_info *info)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	pthread_mutex_unlock(&info->msg);
-// 	pthread_mutex_unlock(&info->death);
-// 	pthread_mutex_unlock(&info->done);
-// 	while (i < info->nb_philos)
-// 	{
-// 		pthread_mutex_unlock(&info->forks[i]);
-// 		pthread_mutex_unlock(&info->eat);
-// 		i++;
-// 	}
-// }

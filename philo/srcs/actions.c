@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/13 17:22:51 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/17 08:48:23 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	p_sleep(t_info *info, t_philo *philo)
 {
+	if (is_end(info) == true)
+		return (false);
 	if (p_print(info, philo, SLEEP, CYAN) == -1)
 		return (false);
 	ft_usleep(info->time_to_sleep);
@@ -22,6 +24,8 @@ bool	p_sleep(t_info *info, t_philo *philo)
 
 bool	p_think(t_info *info, t_philo *philo)
 {
+	if (is_end(info) == true)
+		return (false);
 	if (p_print(info, philo, THINK, CYAN) == -1)
 		return (false);
 	return (true);
@@ -43,21 +47,25 @@ bool	is_dead(t_philo *philo, t_info *info)
 	return (false);
 }
 
-bool	is_end(t_philo *philo, t_info *info)
+void	done_eating(t_info *info)
 {
-	int			dt;
+	pthread_mutex_lock(&info->msg);
+	printf("%s%lld	Everyone is done eating\n%s", \
+	MAGENTA, delta_time(info->t0), END);
+	pthread_mutex_unlock(&info->msg);
+	pthread_mutex_lock(&info->death);
+	info->dead = true;
+	pthread_mutex_unlock(&info->death);
+}
 
-	pthread_mutex_lock(&philo->eat);
-	dt = delta_time(philo->last_eat);
-	if (dt >= info->time_to_die)
+bool	is_end(t_info *info)
+{
+	pthread_mutex_lock(&info->death);
+	if (info->dead == true)
 	{
-		p_print(info, philo, DEAD, RED);
-		pthread_mutex_lock(&info->death);
-		info->dead = true;
 		pthread_mutex_unlock(&info->death);
-		pthread_mutex_unlock(&philo->eat);
 		return (true);
 	}
-	pthread_mutex_unlock(&philo->eat);
+	pthread_mutex_unlock(&info->death);
 	return (false);
 }
