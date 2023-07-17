@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 00:32:10 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/17 09:25:42 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/17 09:40:19 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	is_dead(t_philo *philo, t_info *info)
 void	done_eating(t_info *info)
 {
 	pthread_mutex_lock(&info->msg);
-	printf("%s%lld	Everyone is done eating\n%s", \
+	printf("%s%lld	Everyone is done eating%s\n", \
 	MAGENTA, delta_time(info->t0), END);
 	pthread_mutex_lock(&info->death);
 	info->dead = true;
