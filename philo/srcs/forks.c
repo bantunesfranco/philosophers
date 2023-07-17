@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 18:52:05 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/17 09:31:11 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/17 16:07:47 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	clean_forks(t_philo *philos, t_info *info, int n)
 	int	i;
 
 	i = 0;
-	(void)philos;
 	pthread_mutex_destroy(&info->msg);
 	pthread_mutex_destroy(&info->death);
 	pthread_mutex_destroy(&info->done);
 	while (i < n)
 	{
 		pthread_mutex_destroy(&info->forks[i]);
+		pthread_mutex_destroy(&philos[i].eat);
 		i++;
 	}
 }

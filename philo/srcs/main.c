@@ -17,7 +17,8 @@ void	free_info(t_info *info, t_philo *philos)
 {
 	clean_forks(philos, info, info->nb_philos);
 	free(philos);
-	free(info->forks);
+	if (info->forks)
+		free(info->forks);
 }
 
 static int	init_info(t_info *info, char **argv)
@@ -42,6 +43,7 @@ static int	init_info(t_info *info, char **argv)
 		return (err_msg(ARG5));
 	info->dead = false;
 	info->philo_done = 0;
+	info->forks = NULL;
 	return (0);
 }
 
@@ -58,7 +60,7 @@ int	main(int argc, char **argv)
 	if (!philos)
 		return (1);
 	if (create_forks(&info, philos) == -1)
-		return (1);
+		return (free_info(&info, philos), 1);
 	create_threads(&info, philos);
 	free_info(&info, philos);
 	return (0);
