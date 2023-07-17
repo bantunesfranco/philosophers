@@ -30,7 +30,7 @@ static int	init_info(t_info *info, char **argv)
 		info->nb_meals = p_atoi(argv[5]);
 	else
 		info->nb_meals = 0;
-	if (info->nb_philos <= 0)
+	if (info->nb_philos <= 0 || info->nb_philos > 500)
 		return (err_msg(ARG1));
 	if (info->time_to_die <= 0)
 		return (err_msg(ARG2));

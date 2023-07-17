@@ -104,8 +104,7 @@ bool		is_end(t_info *info);
 void		done_eating(t_info *info);
 
 /* exit */
-int			join_threads(t_info *info, t_philo *philos);
-int			kill_threads(t_philo *philos, int n);
+int			join_threads(t_info *info, t_philo *philos, int n);
 void		clean_forks(t_philo *philos, t_info *info, int n);
 void		unlock_forks(t_info *info);
 void		free_info(t_info *info, t_philo *philos);
