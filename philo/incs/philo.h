@@ -35,6 +35,7 @@ typedef struct s_info
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg;
 	pthread_mutex_t	death;
+	pthread_mutex_t	done;
 }	t_info;
 
 typedef struct s_philo

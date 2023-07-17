@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/02 16:51:20 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/17 08:45:24 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/17 09:31:42 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,16 @@ void	*payday(void *param)
 	time = get_time();
 	while (1)
 	{
+		pthread_mutex_lock(&info->done);
 		if (info->philo_done == info->nb_philos)
-			return (done_eating(info), NULL);
+			return (pthread_mutex_unlock(&info->done), done_eating(info), NULL);
+		pthread_mutex_unlock(&info->done);
 		if (delta_time(time) >= info->time_to_die)
 		{
-			i = 0;
-			while (i < info->nb_philos && info->philo_done != info->nb_philos)
-			{
+			i = -1;
+			while (++i < info->nb_philos)
 				if (is_dead(&philos[i], info))
 					return (NULL);
-				i++;
-			}
 			time = get_time();
 		}
 	}

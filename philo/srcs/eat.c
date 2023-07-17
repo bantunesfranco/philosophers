@@ -6,7 +6,7 @@
 /*   By: bfranco <bfranco@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/13 17:12:15 by bfranco       #+#    #+#                 */
-/*   Updated: 2023/07/17 08:49:12 by bfranco       ########   odam.nl         */
+/*   Updated: 2023/07/17 09:30:37 by bfranco       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 static void	min_meals(t_philo *philo, t_info *info)
 {
 	pthread_mutex_lock(&philo->eat);
+	pthread_mutex_lock(&info->done);
 	if (info->nb_meals > 0 && philo->nb_times_ate == info->nb_meals)
 		info->philo_done++;
+	pthread_mutex_unlock(&info->done);
 	pthread_mutex_unlock(&philo->eat);
 }
 
