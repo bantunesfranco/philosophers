@@ -16,7 +16,7 @@ DIR_O = obj
 ifndef DEBUG
 	CFLAGS = -Wall -Werror -Wextra -pthread -Ofast
 else
-	CFLAGS = -Wall -Werror -Wextra -pthread -Ofast -g -fsanitize=thread
+	CFLAGS = -Wall -Werror -Wextra -pthread -Ofast -g -fsanitize=leak
 endif
 
 INCS = -I $(DIR_I)
