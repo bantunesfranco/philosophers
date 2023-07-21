@@ -41,5 +41,5 @@ void	ft_usleep(long long time)
 	if (start == -1)
 		return ;
 	while (delta_time(start) < time)
-		usleep(100);
+		usleep(200);
 }
